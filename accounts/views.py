@@ -40,8 +40,8 @@ def customer(request,pk_test):
 
     return render(request, 'accounts/customer.html',context)
 
-def createOrder(request, pk):
-    customer = Customer.objects.get(id=pk)
+def createOrder(request):
+    # customer = Customer.objects.get(id=pk)
     form = OrderForm()
 
     if request.method == 'POST':
