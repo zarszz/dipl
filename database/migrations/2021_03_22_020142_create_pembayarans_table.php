@@ -17,7 +17,6 @@ class CreatePembayaransTable extends Migration
             $table->id();
             $table->date('tgl_bayar');
             $table->string('no_bayar')->unique();
-            $table->string('id_bayar')->unique();
             $table->string('status');
             $table->decimal('jumlah_bayar', $precision = 15, $scale = 2);
 

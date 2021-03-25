@@ -17,17 +17,31 @@ class BarangSeeder extends Seeder
         Barang::create([
             'user_id' => 2,
             'kode_gudang' => 1,
+            'kode_ruangan' => 1,
             'nama_brg' => 'barang si ucok 1',
-            'jenis_brg' => 'elektronik',
+            'kode_kategori' => 1,
+            'kode_kendaraan' => 1,
             'jumlah_brg' => 12
         ]);
 
         Barang::create([
             'user_id' => 2,
             'kode_gudang' => 1,
+            'kode_ruangan' => 2,
             'nama_brg' => 'barang si ucok 2',
-            'jenis_brg' => 'elektronik',
+            'kode_kategori' => 1,
+            'kode_kendaraan' => 1,
             'jumlah_brg' => 12
+        ]);
+
+        Barang::create([
+            'user_id' => 2,
+            'kode_gudang' => 1,
+            'kode_ruangan' => 2,
+            'nama_brg' => 'furniture ucok',
+            'kode_kategori' => 1,
+            'kode_kendaraan' => 1,
+            'jumlah_brg' => 1
         ]);
     }
 }

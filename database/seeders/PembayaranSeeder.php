@@ -19,16 +19,16 @@ class PembayaranSeeder extends Seeder
         Pembayaran::create([
             'tgl_bayar' => Carbon::now(),
             'no_bayar' => Str::uuid(),
-            'id_bayar' => Str::uuid(),
+            'status' => 'berhasil',
             'jumlah_bayar' => 1000000,
-            'user_id' => 2
+            'user_id' => 1
         ]);
         Pembayaran::create([
             'tgl_bayar' => Carbon::now(),
             'no_bayar' => Str::uuid(),
-            'id_bayar' => Str::uuid(),
+            'status' => 'berhasil',
             'jumlah_bayar' => 1500000,
-            'user_id' => 3
+            'user_id' => 2
         ]);
     }
 }

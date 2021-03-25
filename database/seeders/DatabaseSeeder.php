@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Kendaraan;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,9 +17,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             GudangSeeder::class,
-            // BarangSeeder::class,
-            // PembayaranSeeder::class,
-            TicketingSeeder::class
+            RuanganSeeder::class,
+            KategoriSeeder::class,
+            KendaraanSeeder::class,
+            BarangSeeder::class,
+            PembayaranSeeder::class,
+            TicketingSeeder::class,
+            AuditLogSeeder::class
         ]);
     }
 }
