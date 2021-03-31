@@ -15,17 +15,8 @@ class BarangController extends Controller
      */
     public function index(Request $request)
     {
-        $editableBarang = null;
-        $barangQuery = Barang::query();
-        $barangQuery->where('title', 'like', '%'.$request->get('q').'%');
-        $barangQuery->orderBy('title');
-        $barangs = $barangQuery->paginate(25);
-
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editableBarang = Barang::find(request('id'));
-        }
-
-        return view('barangs.index', compact('barangs', 'editableBarang'));
+        $barangs = Barang::all();
+        return view('barangs.index', compact('barangs'));
     }
 
     /**
@@ -39,10 +30,14 @@ class BarangController extends Controller
         $this->authorize('create', new Barang);
 
         $newBarang = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'user_id'       => 'required',
+            'kode_gudang' => 'required',
+            'kode_ruangan' => 'required',
+            'kode_kategori' => 'required',
+            'nama_brg' => 'required',
+            'jumlah_brg' => 'required'
         ]);
-        $newBarang['creator_id'] = auth()->id();
+        $newBarang['user_id'] = auth()->id();
 
         Barang::create($newBarang);
 
@@ -61,8 +56,12 @@ class BarangController extends Controller
         $this->authorize('update', $barang);
 
         $barangData = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'user_id'       => 'required',
+            'kode_gudang' => 'required',
+            'kode_ruangan' => 'required',
+            'kode_kategori' => 'required',
+            'nama_brg' => 'required',
+            'jumlah_brg' => 'required'
         ]);
         $barang->update($barangData);
 
@@ -82,9 +81,9 @@ class BarangController extends Controller
     {
         $this->authorize('delete', $barang);
 
-        $request->validate(['barang_id' => 'required']);
+        $request->validate(['id' => 'required']);
 
-        if ($request->get('barang_id') == $barang->id && $barang->delete()) {
+        if ($request->get('id') == $barang->id && $barang->delete()) {
             $routeParam = request()->only('page', 'q');
 
             return redirect()->route('barangs.index', $routeParam);

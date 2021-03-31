@@ -15,17 +15,8 @@ class AuditLogController extends Controller
      */
     public function index(Request $request)
     {
-        $editableAuditLog = null;
-        $auditLogQuery = AuditLog::query();
-        $auditLogQuery->where('title', 'like', '%'.$request->get('q').'%');
-        $auditLogQuery->orderBy('title');
-        $auditLogs = $auditLogQuery->paginate(25);
-
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editableAuditLog = AuditLog::find(request('id'));
-        }
-
-        return view('audit_logs.index', compact('auditLogs', 'editableAuditLog'));
+        $auditLogs = AuditLog::all();
+        return view('audit_logs.index', compact('auditLogs'));
     }
 
     /**
@@ -39,10 +30,12 @@ class AuditLogController extends Controller
         $this->authorize('create', new AuditLog);
 
         $newAuditLog = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'keterangan'       => 'required',
+            'aksi' => 'required',
+            'kode_gudang' => 'required',
+            'kode_barang' => 'required'
         ]);
-        $newAuditLog['creator_id'] = auth()->id();
+        $newAuditLog['user_id'] = auth()->id();
 
         AuditLog::create($newAuditLog);
 
@@ -61,8 +54,10 @@ class AuditLogController extends Controller
         $this->authorize('update', $auditLog);
 
         $auditLogData = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'keterangan'       => 'required',
+            'aksi' => 'required',
+            'kode_gudang' => 'required',
+            'kode_barang' => 'required'
         ]);
         $auditLog->update($auditLogData);
 
@@ -82,9 +77,9 @@ class AuditLogController extends Controller
     {
         $this->authorize('delete', $auditLog);
 
-        $request->validate(['audit_log_id' => 'required']);
+        $request->validate(['id' => 'required']);
 
-        if ($request->get('audit_log_id') == $auditLog->id && $auditLog->delete()) {
+        if ($request->get('id') == $auditLog->id && $auditLog->delete()) {
             $routeParam = request()->only('page', 'q');
 
             return redirect()->route('audit_logs.index', $routeParam);

@@ -15,17 +15,9 @@ class KendaraanController extends Controller
      */
     public function index(Request $request)
     {
-        $editableKendaraan = null;
-        $kendaraanQuery = Kendaraan::query();
-        $kendaraanQuery->where('title', 'like', '%'.$request->get('q').'%');
-        $kendaraanQuery->orderBy('title');
-        $kendaraans = $kendaraanQuery->paginate(25);
 
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editableKendaraan = Kendaraan::find(request('id'));
-        }
-
-        return view('kendaraans.index', compact('kendaraans', 'editableKendaraan'));
+        $kendaraans = Kendaraan::all();
+        return view('kendaraans.index', compact('kendaraans'));
     }
 
     /**
@@ -39,10 +31,11 @@ class KendaraanController extends Controller
         $this->authorize('create', new Kendaraan);
 
         $newKendaraan = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'nama_kendaraan'       => 'required|max:60',
+            'plat_nomor' => 'required|max:255',
+            'kapasitas' => 'required|max:255',
+            'kapasitas_terpakai' => 'required|max:255',
         ]);
-        $newKendaraan['creator_id'] = auth()->id();
 
         Kendaraan::create($newKendaraan);
 
@@ -61,8 +54,10 @@ class KendaraanController extends Controller
         $this->authorize('update', $kendaraan);
 
         $kendaraanData = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'nama_kendaraan'       => 'required|max:60',
+            'plat_nomor' => 'required|max:255',
+            'kapasitas' => 'required|max:255',
+            'kapasitas_terpakai' => 'required|max:255',
         ]);
         $kendaraan->update($kendaraanData);
 
@@ -82,9 +77,9 @@ class KendaraanController extends Controller
     {
         $this->authorize('delete', $kendaraan);
 
-        $request->validate(['kendaraan_id' => 'required']);
+        $request->validate(['id' => 'required']);
 
-        if ($request->get('kendaraan_id') == $kendaraan->id && $kendaraan->delete()) {
+        if ($request->get('id') == $kendaraan->id && $kendaraan->delete()) {
             $routeParam = request()->only('page', 'q');
 
             return redirect()->route('kendaraans.index', $routeParam);

@@ -10,7 +10,7 @@ class Role extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'creator_id'];
+    protected $fillable = ['nama_role'];
 
     public function getTitleLinkAttribute()
     {

@@ -15,17 +15,8 @@ class GudangController extends Controller
      */
     public function index(Request $request)
     {
-        $editableGudang = null;
-        $gudangQuery = Gudang::query();
-        $gudangQuery->where('title', 'like', '%'.$request->get('q').'%');
-        $gudangQuery->orderBy('title');
-        $gudangs = $gudangQuery->paginate(25);
-
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editableGudang = Gudang::find(request('id'));
-        }
-
-        return view('gudangs.index', compact('gudangs', 'editableGudang'));
+        $gudangs = Gudang::all();
+        return view('gudangs.index', compact('gudangs'));
     }
 
     /**
@@ -39,10 +30,8 @@ class GudangController extends Controller
         $this->authorize('create', new Gudang);
 
         $newGudang = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'alamat'       => 'required'
         ]);
-        $newGudang['creator_id'] = auth()->id();
 
         Gudang::create($newGudang);
 
@@ -61,8 +50,7 @@ class GudangController extends Controller
         $this->authorize('update', $gudang);
 
         $gudangData = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'alamat' => 'required'
         ]);
         $gudang->update($gudangData);
 
@@ -82,9 +70,9 @@ class GudangController extends Controller
     {
         $this->authorize('delete', $gudang);
 
-        $request->validate(['gudang_id' => 'required']);
+        $request->validate(['id' => 'required']);
 
-        if ($request->get('gudang_id') == $gudang->id && $gudang->delete()) {
+        if ($request->get('id') == $gudang->id && $gudang->delete()) {
             $routeParam = request()->only('page', 'q');
 
             return redirect()->route('gudangs.index', $routeParam);
