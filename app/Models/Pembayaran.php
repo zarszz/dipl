@@ -10,7 +10,7 @@ class Pembayaran extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'creator_id'];
+    protected $fillable = ['tgl_bayar', 'no_bayar', 'status', 'jumlah_bayar', 'user_id'];
 
     public function getTitleLinkAttribute()
     {

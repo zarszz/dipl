@@ -15,17 +15,8 @@ class TicketingController extends Controller
      */
     public function index(Request $request)
     {
-        $editableTicketing = null;
-        $ticketingQuery = Ticketing::query();
-        $ticketingQuery->where('title', 'like', '%'.$request->get('q').'%');
-        $ticketingQuery->orderBy('title');
-        $ticketings = $ticketingQuery->paginate(25);
-
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editableTicketing = Ticketing::find(request('id'));
-        }
-
-        return view('ticketings.index', compact('ticketings', 'editableTicketing'));
+        $ticketings = Ticketing::all();
+        return view('ticketings.index', compact('ticketings'));
     }
 
     /**
@@ -39,10 +30,9 @@ class TicketingController extends Controller
         $this->authorize('create', new Ticketing);
 
         $newTicketing = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'pesan' => 'required|max:255|min:10',
         ]);
-        $newTicketing['creator_id'] = auth()->id();
+        $newTicketing['user_id'] = auth()->id();
 
         Ticketing::create($newTicketing);
 
@@ -61,8 +51,7 @@ class TicketingController extends Controller
         $this->authorize('update', $ticketing);
 
         $ticketingData = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'pesan' => 'required|max:255|min:10',
         ]);
         $ticketing->update($ticketingData);
 
@@ -82,9 +71,9 @@ class TicketingController extends Controller
     {
         $this->authorize('delete', $ticketing);
 
-        $request->validate(['ticketing_id' => 'required']);
+        $request->validate(['id' => 'required']);
 
-        if ($request->get('ticketing_id') == $ticketing->id && $ticketing->delete()) {
+        if ($request->get('id') == $ticketing->id && $ticketing->delete()) {
             $routeParam = request()->only('page', 'q');
 
             return redirect()->route('ticketings.index', $routeParam);

@@ -15,17 +15,8 @@ class KategoriController extends Controller
      */
     public function index(Request $request)
     {
-        $editableKategori = null;
-        $kategoriQuery = Kategori::query();
-        $kategoriQuery->where('title', 'like', '%'.$request->get('q').'%');
-        $kategoriQuery->orderBy('title');
-        $kategoris = $kategoriQuery->paginate(25);
-
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editableKategori = Kategori::find(request('id'));
-        }
-
-        return view('kategoris.index', compact('kategoris', 'editableKategori'));
+        $kategoris = Kategori::all();
+        return view('kategoris.index', compact('kategoris'));
     }
 
     /**
@@ -39,10 +30,9 @@ class KategoriController extends Controller
         $this->authorize('create', new Kategori);
 
         $newKategori = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'kategori'       => 'required',
+            'deskripsi' => 'required',
         ]);
-        $newKategori['creator_id'] = auth()->id();
 
         Kategori::create($newKategori);
 
@@ -60,11 +50,11 @@ class KategoriController extends Controller
     {
         $this->authorize('update', $kategori);
 
-        $kategoriData = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+        $newKategori = $request->validate([
+            'kategori'  => 'required',
+            'deskripsi' => 'required',
         ]);
-        $kategori->update($kategoriData);
+        $kategori->update($newKategori);
 
         $routeParam = request()->only('page', 'q');
 
@@ -82,9 +72,9 @@ class KategoriController extends Controller
     {
         $this->authorize('delete', $kategori);
 
-        $request->validate(['kategori_id' => 'required']);
+        $request->validate(['id' => 'required']);
 
-        if ($request->get('kategori_id') == $kategori->id && $kategori->delete()) {
+        if ($request->get('id') == $kategori->id && $kategori->delete()) {
             $routeParam = request()->only('page', 'q');
 
             return redirect()->route('kategoris.index', $routeParam);

@@ -10,7 +10,7 @@ class Kendaraan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'creator_id'];
+    protected $fillable = ['nama_kendaraan', 'plat_nomor', 'kapasitas', 'kapasitas_terpakai'];
 
     public function getTitleLinkAttribute()
     {

@@ -46,56 +46,57 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
      Route::get('/user',function () {
         return view('user') ;
      })->name('user');
+
+     /*
+    * Ticketings Routes
+    */
+    Route::resource('ticketings', App\Http\Controllers\TicketingController::class);
+
+    /*
+    * Gudangs Routes
+    */
+    Route::resource('gudangs', App\Http\Controllers\GudangController::class);
+
+    /*
+    * Barangs Routes
+    */
+    Route::resource('barangs', App\Http\Controllers\BarangController::class);
+
+    /*
+    * AuditLogs Routes
+    */
+    Route::resource('audit_logs', App\Http\Controllers\AuditLogController::class);
+
+    /*
+    * UserRoles Routes
+    */
+    // Route::resource('user_roles', App\Http\Controllers\UserRoleController::class);
+
+    /*
+    * Roles Routes
+    */
+    Route::resource('roles', App\Http\Controllers\RoleController::class);
+
+    /*
+    * Pembayarans Routes
+    */
+    Route::resource('pembayarans', App\Http\Controllers\PembayaranController::class);
+
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+    /*
+    * Kendaraans Routes
+    */
+    Route::resource('kendaraans', App\Http\Controllers\KendaraanController::class);
+
+    /*
+    * Ruangans Routes
+    */
+    Route::resource('ruangans', App\Http\Controllers\RuanganController::class);
+
+    /*
+    * Kategoris Routes
+    */
+    Route::resource('kategoris', App\Http\Controllers\KategoriController::class);
+
 });
-
-/*
- * Ticketings Routes
- */
-Route::resource('ticketings', App\Http\Controllers\TicketingController::class);
-
-/*
- * Gudangs Routes
- */
-Route::resource('gudangs', App\Http\Controllers\GudangController::class);
-
-/*
- * Barangs Routes
- */
-Route::resource('barangs', App\Http\Controllers\BarangController::class);
-
-/*
- * AuditLogs Routes
- */
-Route::resource('audit_logs', App\Http\Controllers\AuditLogController::class);
-
-/*
- * UserRoles Routes
- */
-// Route::resource('user_roles', App\Http\Controllers\UserRoleController::class);
-
-/*
- * Roles Routes
- */
-Route::resource('roles', App\Http\Controllers\RoleController::class);
-
-/*
- * Pembayarans Routes
- */
-Route::resource('pembayarans', App\Http\Controllers\PembayaranController::class);
-
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-
-/*
- * Kendaraans Routes
- */
-Route::resource('kendaraans', App\Http\Controllers\KendaraanController::class);
-
-/*
- * Ruangans Routes
- */
-Route::resource('ruangans', App\Http\Controllers\RuanganController::class);
-
-/*
- * Kategoris Routes
- */
-Route::resource('kategoris', App\Http\Controllers\KategoriController::class);

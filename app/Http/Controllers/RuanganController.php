@@ -15,16 +15,7 @@ class RuanganController extends Controller
      */
     public function index(Request $request)
     {
-        $editableRuangan = null;
-        $ruanganQuery = Ruangan::query();
-        $ruanganQuery->where('title', 'like', '%'.$request->get('q').'%');
-        $ruanganQuery->orderBy('title');
-        $ruangans = $ruanganQuery->paginate(25);
-
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editableRuangan = Ruangan::find(request('id'));
-        }
-
+        $ruangans = Ruangan::all();
         return view('ruangans.index', compact('ruangans', 'editableRuangan'));
     }
 
@@ -39,10 +30,10 @@ class RuanganController extends Controller
         $this->authorize('create', new Ruangan);
 
         $newRuangan = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'nama_ruangan'       => 'required|max:60',
+            'kode_ruangan' => 'required|max:60',
+            'kode_gudang' => 'required|integer'
         ]);
-        $newRuangan['creator_id'] = auth()->id();
 
         Ruangan::create($newRuangan);
 
@@ -61,8 +52,9 @@ class RuanganController extends Controller
         $this->authorize('update', $ruangan);
 
         $ruanganData = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
+            'nama_ruangan' => 'required|max:60',
+            'kode_ruangan' => 'required|max:60',
+            'kode_gudang'  => 'required|integer'
         ]);
         $ruangan->update($ruanganData);
 
@@ -82,9 +74,9 @@ class RuanganController extends Controller
     {
         $this->authorize('delete', $ruangan);
 
-        $request->validate(['ruangan_id' => 'required']);
+        $request->validate(['id' => 'required']);
 
-        if ($request->get('ruangan_id') == $ruangan->id && $ruangan->delete()) {
+        if ($request->get('id') == $ruangan->id && $ruangan->delete()) {
             $routeParam = request()->only('page', 'q');
 
             return redirect()->route('ruangans.index', $routeParam);
