@@ -16,17 +16,18 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->date('tgl_lahir');
-            $table->string('password');
-            $table->longText('alamat');
-            $table->enum('jenis_kelamin', ['pria', 'wanita', 'yang lain']);
+            $table->date('tgl_lahir')->nullable();
+            $table->string('password')->nullable();
+            $table->longText('alamat')->nullable();
+            $table->enum('jenis_kelamin', ['pria', 'wanita', 'yang lain'])->nullable();
             /**
              * role_id
              * 1 = admin
              * 2 = driver
              * 3 = user
              */
-            $table->integer('role_id');
+            $table->integer('role_id')->nullable();
+            $table->char('google_id')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

@@ -30,7 +30,8 @@ class User extends Authenticatable
         'jenis_kelamin',
         'email',
         'password',
-        'role_id'
+        'role_id',
+        'google_id'
     ];
 
     /**
