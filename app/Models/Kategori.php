@@ -10,7 +10,7 @@ class Kategori extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'creator_id'];
+    protected $fillable = ['kategori', 'deskripsi'];
 
     public function getTitleLinkAttribute()
     {

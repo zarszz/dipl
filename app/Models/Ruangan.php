@@ -10,7 +10,7 @@ class Ruangan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'creator_id'];
+    protected $fillable = ['nama_ruangan', 'kode_ruangan', 'kode_gudang'];
 
     public function getTitleLinkAttribute()
     {
