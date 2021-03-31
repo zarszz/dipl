@@ -23,7 +23,8 @@ class CreateUsersTable extends Migration
             /**
              * role_id
              * 1 = admin
-             * 2 = user
+             * 2 = driver
+             * 3 = user
              */
             $table->integer('role_id');
             $table->string('email')->unique();

@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div id="auth-left">
         <div class="auth-logo">
-            <a href="index.html"><img src="{{ asset('/images/logo/logo.png') }}" alt="Logo"></a>
+            <a href="{{ route('index') }}"><img src="{{ asset('/images/logo/logo.png') }}" alt="Logo"></a>
         </div>
         <h1 class="auth-title">Forgot Password</h1>
         <p class="auth-subtitle mb-5">Input your email and we will send you reset password link.</p>
@@ -21,5 +21,5 @@
             </p>
         </div>
     </div>
-   
+
 </x-guest-layout>

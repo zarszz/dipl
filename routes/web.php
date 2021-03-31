@@ -67,7 +67,7 @@ Route::resource('audit_logs', App\Http\Controllers\AuditLogController::class);
 /*
  * UserRoles Routes
  */
-Route::resource('user_roles', App\Http\Controllers\UserRoleController::class);
+// Route::resource('user_roles', App\Http\Controllers\UserRoleController::class);
 
 /*
  * Roles Routes
