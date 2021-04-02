@@ -23,30 +23,39 @@ Route::get('auth/google', [LoginController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/dashboard',function () {
-       return view('dashboard') ;
-    })->name('dashboard');
 
-    Route::get('/pembayaran',function () {
-        return view('pembayaran') ;
-     })->name('pembayaran');
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/',function () {
+            return view('dashboard') ;
+         })->name('dashboard');
 
-     Route::get('/gudang',function () {
-        return view('gudang') ;
-     })->name('gudang');
+         Route::get('/pembayaran',function () {
+             return view('pembayaran') ;
+          })->name('dashboard.pembayaran');
 
-     Route::get('/barang',function () {
-        return view('barang') ;
-     })->name('barang');
+          Route::get('/gudang',function () {
+             return view('gudang') ;
+          })->name('dashboard.gudang');
 
-     Route::get('/log_audit',function () {
-        return view('log_audit') ;
-     })->name('log_audit');
+          Route::get('/barang',function () {
+             return view('barang') ;
+          })->name('dashboard.barang');
 
-     Route::get('/user',function () {
-        return view('user') ;
-     })->name('user');
+          Route::get('/log_audit',function () {
+             return view('log_audit') ;
+          })->name('dashboard.log_audit');
 
+          Route::get('/user',function () {
+             return view('user');
+          })->name('dashboard.user')->middleware('can:viewDashboard,App\Models\User');
+
+          Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
+          Route::get('/admin/user/new', [UserController::class, 'create'])->name('dashboard.user.create');
+          Route::post('/admin/user', [UserController::class, 'store'])->name('dashboard.user.store');
+          Route::get('/admin/user/edit/{id}', [UserController::class, 'edit']);
+          Route::put('/admin/user/update/{id}', [UserController::class, 'update'])->name('admin.user.update');
+          Route::get('/admin/user/{id}/delete', [UserController::class, 'delete'])->name('admin.user.delete');
+    });
      /*
     * Ticketings Routes
     */
@@ -82,7 +91,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     */
     Route::resource('pembayarans', App\Http\Controllers\PembayaranController::class);
 
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
     /*
     * Kendaraans Routes

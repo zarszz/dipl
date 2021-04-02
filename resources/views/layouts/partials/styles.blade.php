@@ -13,6 +13,7 @@
 
 <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
 <link href="{{ asset('css/responsive.dataTables.min.css') }}" rel="stylesheet">
+<link href="{{ asset('css/jquery.datetimepicker.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/buttons.dataTables.min.css') }}">
 <style>
     Overrides to match the Tailwind CSS

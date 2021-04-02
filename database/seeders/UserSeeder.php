@@ -16,10 +16,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-
-        $users = [
-
-        ];
         User::create([
             'nama' => 'admin',
             'tgl_lahir' => Carbon::createFromFormat('d-m-Y', '23-5-1980'),
@@ -48,6 +44,16 @@ class UserSeeder extends Seeder
             'jenis_kelamin' => 'pria',
             'role_id' => 2,
             'email' => 'otong@email.com'
+        ]);
+
+        User::create([
+            'nama' => 'driver',
+            'tgl_lahir' => Carbon::createFromFormat('d-m-Y', '10-10-1999'),
+            'password' => Hash::make('password'),
+            'alamat' => 'ciendog babakan kampret',
+            'jenis_kelamin' => 'pria',
+            'role_id' => 3,
+            'email' => 'driver@email.com'
         ]);
     }
 }

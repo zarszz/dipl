@@ -5,7 +5,11 @@
         </div>
         <h1 class="auth-title">Daftar</h1>
         <p class="auth-subtitle mb-5">Satu langkah lagi untuk bergabung bersama kami</p>
-
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                {{ $errors->first() }}
+            </div>
+        @endif
         <form action="{{ route('register') }}" method="POST">
             @csrf
             <div class="form-group position-relative has-icon-left mb-4">
@@ -38,12 +42,10 @@
                     <i class="bi bi-house"></i>
                 </div>
             </div>
-            <div class="form-group position-relative has-icon-left mb-4">
-                <input placeholder="Tanggal lahir" class="form-control form-control-xl type="text" onfocus="(this.type='date')" id="date" name="tgl_lahir" required>
-                <div class="form-control-icon">
-                    <i class="bi bi-calendar"></i>
-                </div>
-            </div>
+            <div class="form-group position-relative mb-4">
+                <p style="color: #6c757d; font-size: 22px;">Tanggal Lahir</p>
+                <input type="text" id="datetimepicker" name="tgl_lahir">
+            </div>>
             <div class="form-group position-relative mb-4">
                 <p style="color: #6c757d; font-size: 22px;">Jenis kelamin</p>
                 <div class="form-check">

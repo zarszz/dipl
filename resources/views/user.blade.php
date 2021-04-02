@@ -50,9 +50,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 d-flex justify-content-center">
+                                <div class="col-6">
                                     <button type="submit"
-                                        class="btn btn-primary me-1 mb-1">Search</button>
+                                        class="btn btn-primary me-1 mb-1 btn-block">Search</button>
+                                </div>
+                                <div class="col-6">
+                                    <a href="{{ route('dashboard.user.create') }}" class="btn btn-success me-1 mb-1 btn-block">Add New User</a>
                                 </div>
                             </div>
                         </div>
@@ -62,6 +65,7 @@
                             <tr>
                                 <th>Nama</th>
                                 <th>Email</th>
+                                <th>Jenis Kelamin</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

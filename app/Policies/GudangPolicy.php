@@ -5,10 +5,13 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\Gudang;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class GudangPolicy
 {
     use HandlesAuthorization;
+
+    private $NOT_ALLOWED = "You do not allow to perform this method";
 
     /**
      * Determine whether the user can view the gudang.
@@ -33,7 +36,9 @@ class GudangPolicy
     public function create(User $user, Gudang $gudang)
     {
         // Update $user authorization to create $gudang here.
-        return true;
+        return $user->role_id == 1
+                    ? Response::allow()
+                    : Response::deny($this->NOT_ALLOWED);
     }
 
     /**
@@ -46,7 +51,9 @@ class GudangPolicy
     public function update(User $user, Gudang $gudang)
     {
         // Update $user authorization to update $gudang here.
-        return true;
+        return $user->role_id == 1
+                    ? Response::allow()
+                    : Response::deny($this->NOT_ALLOWED);
     }
 
     /**
@@ -59,6 +66,8 @@ class GudangPolicy
     public function delete(User $user, Gudang $gudang)
     {
         // Update $user authorization to delete $gudang here.
-        return true;
+        return $user->role_id == 1
+                    ? Response::allow()
+                    : Response::deny($this->NOT_ALLOWED);
     }
 }

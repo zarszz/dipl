@@ -23,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Barang' => 'App\Policies\BarangPolicy',
         'App\Models\Gudang' => 'App\Policies\GudangPolicy',
         'App\Models\Ticketing' => 'App\Policies\TicketingPolicy',
+        'App\Models\User' => 'App\Policies\UserPolicy'
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
