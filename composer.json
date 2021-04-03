@@ -19,7 +19,8 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.0",
         "luthfi/simple-crud-generator": "^2.0",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "~9.0",
+        "fakerphp/faker": "^1.9.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
