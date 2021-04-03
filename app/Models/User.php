@@ -30,6 +30,7 @@ class User extends Authenticatable
         'jenis_kelamin',
         'email',
         'password',
+        'status',
         'role_id',
         'google_id'
     ];
@@ -60,9 +61,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = [
-        'profile_photo_url',
-    ];
+    protected $appends = [];
 
     public function ticket()
     {

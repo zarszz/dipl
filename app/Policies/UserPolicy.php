@@ -88,7 +88,17 @@ class UserPolicy
      */
     public function destroy(User $user, User $model)
     {
-        echo($model);
         return $user->role_id == 1 || $user->id == $model->id;
+    }
+
+    /**
+     * Determine whether the user can verified user.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    public function verifyUser(User $user)
+    {
+        return $user->role_id == 1;
     }
 }

@@ -2,22 +2,29 @@
     <x-slot name="header">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Form Layout</h3>
+                <h3>User</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Form Layout</li>
+                        <li class="breadcrumb-item active" aria-current="page">User</li>
                     </ol>
                 </nav>
             </div>
         </div>
     </x-slot>
-    <div class="col-xs-4 box"></div>
     <x-slot name="slot">
         <section class="section">
             <div class="card">
+                <div class="card-body">
+                    <div id="chart-registered-user"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    Cari User
+                </div>
                 <div class="card-body card-content">
                     <form class="form form-horizontal">
                         <div class="form-body">
@@ -66,6 +73,7 @@
                                 <th>Nama</th>
                                 <th>Email</th>
                                 <th>Jenis Kelamin</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

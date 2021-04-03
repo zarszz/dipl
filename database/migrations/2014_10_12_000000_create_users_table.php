@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->integer('role_id')->nullable();
             $table->char('google_id')->nullable();
             $table->string('email')->unique();
+            $table->string('status')->default('unverified');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

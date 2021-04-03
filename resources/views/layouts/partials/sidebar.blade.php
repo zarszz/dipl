@@ -6,7 +6,11 @@
     <x-maz-sidebar-item name="Barang" :link="route('dashboard.barang')" icon="bi bi-bag"></x-maz-sidebar-item>
 
     @if (auth()->user()->role_id == 1)
-        <x-maz-sidebar-item name="User" :link="route('dashboard.user')" icon="bi bi-people"></x-maz-sidebar-item>
+        <x-maz-sidebar-item name="User" :link="route('dashboard.user')" icon="bi bi-people">
+            {{-- <x-slot name="submenu">
+                <x-maz-sidebar-item name="Verifikasi User" :link="route('admin.user.verif')" icon="bi bi-person-check-fill"></x-maz-sidebar-item>
+            </x-slot> --}}
+        </x-maz-sidebar-item>
     @endif
 
     @if (auth()->user()->role_id != 3) <!-- user saat ini bukan driver -->

@@ -49,12 +49,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
              return view('user');
           })->name('dashboard.user')->middleware('can:viewDashboard,App\Models\User');
 
-          Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
-          Route::get('/admin/user/new', [UserController::class, 'create'])->name('dashboard.user.create');
           Route::post('/admin/user', [UserController::class, 'store'])->name('dashboard.user.store');
+          Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
+          Route::get('/admin/users/graph', [UserController::class, 'getRegisteredUserByTime']);
+          Route::get('/admin/user/new', [UserController::class, 'create'])->name('dashboard.user.create');
+          Route::get('/admin/user/{id}/delete', [UserController::class, 'delete'])->name('admin.user.delete');
+          Route::get('/admin/user/{id}/verif', [UserController::class, 'verify'])->name('admin.user.verif');
           Route::get('/admin/user/edit/{id}', [UserController::class, 'edit']);
           Route::put('/admin/user/update/{id}', [UserController::class, 'update'])->name('admin.user.update');
-          Route::get('/admin/user/{id}/delete', [UserController::class, 'delete'])->name('admin.user.delete');
     });
      /*
     * Ticketings Routes
