@@ -11,54 +11,15 @@ class KategoriPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the kategori.
+     * Determine whether only admin can create, update, and delte kategori
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Kategori  $kategori
      * @return mixed
      */
-    public function view(User $user, Kategori $kategori)
+    public function manageKategories(User $user)
     {
-        // Update $user authorization to view $kategori here.
-        return true;
+        return $user->role_id == 1;;
     }
 
-    /**
-     * Determine whether the user can create kategori.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Kategori  $kategori
-     * @return mixed
-     */
-    public function create(User $user, Kategori $kategori)
-    {
-        // Update $user authorization to create $kategori here.
-        return true;
-    }
 
-    /**
-     * Determine whether the user can update the kategori.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Kategori  $kategori
-     * @return mixed
-     */
-    public function update(User $user, Kategori $kategori)
-    {
-        // Update $user authorization to update $kategori here.
-        return true;
-    }
-
-    /**
-     * Determine whether the user can delete the kategori.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Kategori  $kategori
-     * @return mixed
-     */
-    public function delete(User $user, Kategori $kategori)
-    {
-        // Update $user authorization to delete $kategori here.
-        return true;
-    }
 }

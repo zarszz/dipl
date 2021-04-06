@@ -7,16 +7,38 @@ use Illuminate\Http\Request;
 
 class KategoriController extends Controller
 {
-    /**
+
+    public function __construct()
+    {
+        $this->middleware('can:manageKategories,App\Models\User')->except(['index']);
+    }
+
+    /**`
      * Display a listing of the kategori.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
-        $kategoris = Kategori::all();
-        return view('kategoris.index', compact('kategoris'));
+        $kategories = Kategori::all();
+        return datatables()->of($kategories)
+            ->addColumn('Actions', function ($data) {
+                return '<a type="button" href="/dashboard/admin/kategori/' . $data->id . '/edit" class="btn btn-primary btn-sm">Update</a>' .
+                    '    <button type="button" class="btn btn-danger btn-sm" id="adminDeleteKategori" value="' . $data->id . '">Delete</button>';
+            })
+            ->rawColumns(['Actions'])
+            ->make(true);
+    }
+
+    /**
+     * Open kategories input form
+     *
+     */
+    public function create()
+    {
+        // $this->authorize('create', new Kategori);
+        return view('admin.kategoris.create');
     }
 
     /**
@@ -27,16 +49,27 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', new Kategori);
-
         $newKategori = $request->validate([
-            'kategori'       => 'required',
+            'kategori'  => 'required',
             'deskripsi' => 'required',
         ]);
 
         Kategori::create($newKategori);
 
-        return redirect()->route('kategoris.index');
+        return redirect()->route('dashboard.kategories');
+    }
+
+        /**
+     * Update the specified kategori in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Kategori  $kategori
+     * @return \Illuminate\Routing\Redirector
+     */
+    public function edit($id)
+    {
+        // $this->authorize('update', $kategori);
+        return view('admin.kategoris.edit', ['kategori' => Kategori::findOrFail($id)]);
     }
 
     /**
@@ -46,19 +79,17 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Kategori $kategori)
+    public function update(Request $request)
     {
-        $this->authorize('update', $kategori);
-
+        // $this->authorize('update', $kategori);
+        $kategori = Kategori::findorFail($request->id);
         $newKategori = $request->validate([
             'kategori'  => 'required',
             'deskripsi' => 'required',
         ]);
         $kategori->update($newKategori);
 
-        $routeParam = request()->only('page', 'q');
-
-        return redirect()->route('kategoris.index', $routeParam);
+        return redirect()->route('dashboard.kategories');
     }
 
     /**
@@ -68,18 +99,8 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Routing\Redirector
      */
-    public function destroy(Request $request, Kategori $kategori)
+    public function delete($id)
     {
-        $this->authorize('delete', $kategori);
-
-        $request->validate(['id' => 'required']);
-
-        if ($request->get('id') == $kategori->id && $kategori->delete()) {
-            $routeParam = request()->only('page', 'q');
-
-            return redirect()->route('kategoris.index', $routeParam);
-        }
-
-        return back();
+        return Kategori::findOrFail($id)->delete();
     }
 }

@@ -9,7 +9,7 @@
             <a href="{{ route('kategoris.index', ['action' => 'create']) }}" class="btn btn-success">{{ __('kategori.create') }}</a>
         @endcan
     </div>
-    <h1 class="page-title">{{ __('kategori.list') }} <small>{{ __('app.total') }} : {{ $kategoris->total() }} {{ __('kategori.kategori') }}</small></h1>
+    <h1 class="page-title">{{ __('kategori.list') }} <small>{{ __('app.total') }} : {{ 12 }} {{ __('kategori.kategori') }}</small></h1>
 </div>
 
 <div class="row">
@@ -37,7 +37,7 @@
                 <tbody>
                     @foreach($kategoris as $key => $kategori)
                     <tr>
-                        <td class="text-center">{{ $kategoris->firstItem() + $key }}</td>
+                        <td class="text-center">{{ $kategori->created_at }}</td>
                         <td>{{ $kategori->title }}</td>
                         <td>{{ $kategori->description }}</td>
                         <td class="text-center">
@@ -49,7 +49,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="card-body">{{ $kategoris->appends(Request::except('page'))->render() }}</div>
+            <div class="card-body">{{ 12  }}</div>
         </div>
     </div>
     <div class="col-md-4">
