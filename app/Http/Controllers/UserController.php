@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AuditLog;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -112,16 +112,14 @@ class UserController extends Controller
 
     public function verify($id)
     {
-        try {
-            $user = User::find($id);
-            $user->status = "verified";
-            $user->save();
-        } catch (\Exception $e) {
-            if ($e instanceof ModelNotFoundException) {
-                return view('user', ['error' => 'User Not found !!']);
-            }
-            return view('user', ['error' => $e->getMessage()]);
-        }
+        $user = User::findOrFail($id);
+        $user->status = "verified";
+        $user->save();
+        AuditLog::create([
+            'keterangan' => 'Berhasil Melakukan verifikasi user dengan id ' . $id,
+            'aksi' => 'verifikasi-user',
+            'user_id' => auth()->user()->id
+        ]);
     }
 
     public function getRegisteredUserByTime()

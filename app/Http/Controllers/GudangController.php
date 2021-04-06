@@ -21,7 +21,7 @@ class GudangController extends Controller
     {
         $gudangs = Gudang::all();
         $dataTables = datatables()->of($gudangs);
-        if (auth()->user()->can('manageGudang')) {
+        if (auth()->user()->isAdmin()) {
             $dataTables->addColumn('Actions', function ($data) {
                 return '<a type="button" href="/dashboard/admin/gudang/' . $data->id . '/edit" class="btn btn-primary btn-sm">Update</a>' .
                     '    <button type="button" class="btn btn-danger btn-sm" id="adminDeleteGudang" value="' . $data->id . '">Delete</button>';

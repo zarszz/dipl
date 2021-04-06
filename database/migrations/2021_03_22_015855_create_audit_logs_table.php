@@ -21,7 +21,7 @@ class CreateAuditLogsTable extends Migration
             /**
              * Definisi relasi antara audit log dan gudang
              */
-            $table->unsignedBigInteger('kode_gudang');
+            $table->unsignedBigInteger('kode_gudang')->nullable();
             $table->foreign('kode_gudang')
                   ->references('id')
                   ->on('gudangs')
@@ -31,7 +31,7 @@ class CreateAuditLogsTable extends Migration
             /**
              * Definisi relasi antara audit log dan barang
              */
-            $table->unsignedBigInteger('kode_barang');
+            $table->unsignedBigInteger('kode_barang')->nullable();
             $table->foreign('kode_barang')
                   ->references('id')
                   ->on('barangs')
@@ -41,7 +41,7 @@ class CreateAuditLogsTable extends Migration
             /**
              * Definisi relasi antara audit log dan kendaraan
              */
-            $table->unsignedBigInteger('kode_kendaraan');
+            $table->unsignedBigInteger('kode_kendaraan')->nullable();
             $table->foreign('kode_kendaraan')
                   ->references('id')
                   ->on('kendaraans')

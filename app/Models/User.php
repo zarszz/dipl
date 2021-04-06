@@ -77,4 +77,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Pembayaran::class);
     }
+
+    public function isAdmin() {
+        return $this->role_id == 1;
+    }
+
+    public function isDriver() {
+        return $this->role_id == 2;
+    }
 }
