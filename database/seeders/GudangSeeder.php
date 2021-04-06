@@ -15,9 +15,11 @@ class GudangSeeder extends Seeder
     public function run()
     {
         Gudang::create([
+            'nama_gudang' => 'Gudang alamat soleh',
             'alamat' => 'buah batu'
         ]);
         Gudang::create([
+            'nama_gudang' => 'Gudang barokah 001',
             'alamat' => 'bojongsoang'
         ]);
     }

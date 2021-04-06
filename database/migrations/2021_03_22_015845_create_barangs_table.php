@@ -49,7 +49,7 @@ class CreateBarangsTable extends Migration
             /**
              * Definisi relasi antara barang dan kendaraan
              */
-            $table->unsignedBigInteger('kode_kendaraan');
+            $table->unsignedBigInteger('kode_kendaraan')->nullable();
             $table->foreign('kode_kendaraan')
                   ->references('id')
                   ->on('kendaraans')

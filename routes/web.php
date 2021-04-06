@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GudangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
@@ -69,6 +70,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/admin/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('admin.kategories.edit');
         Route::get('/admin/kategori/{id}/delete', [KategoriController::class, 'delete'])->name('admin.kategories.delete');
         Route::put('/admin/kategori/{id}', [KategoriController::class, 'update'])->name('admin.kategories.update');
+
+        Route::post('/admin/gudang', [GudangController::class, 'store'])->name('admin.gudangs.store');
+        Route::get('/admin/gudang', [GudangController::class, 'index'])->name('admin.gudangs.index');
+        Route::get('/admin/gudang/new', [GudangController::class, 'create'])->name('admin.gudangs.create');
+        Route::get('/admin/gudang/{id}/edit', [GudangController::class, 'edit'])->name('admin.gudangs.edit');
+        Route::get('/admin/gudang/{id}/delete', [GudangController::class, 'delete'])->name('admin.gudangs.delete');
+        Route::put('/admin/gudang/{id}', [GudangController::class, 'update'])->name('admin.gudangs.update');
     });
     /*
     * Ticketings Routes

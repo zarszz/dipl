@@ -10,7 +10,7 @@ class Gudang extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['alamat'];
+    protected $fillable = ['alamat', 'nama_gudang'];
 
     public function barang() {
         return $this->hasMany(Barang::class, 'kode_gudang');

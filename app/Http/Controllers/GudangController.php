@@ -7,16 +7,35 @@ use Illuminate\Http\Request;
 
 class GudangController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:manageGudang,App\Models\User')->except(['index']);
+    }
+
     /**
      * Display a listing of the gudang.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\View\View
+     * @return DataTables
      */
-    public function index(Request $request)
+    public function index()
     {
         $gudangs = Gudang::all();
-        return view('gudangs.index', compact('gudangs'));
+        return datatables()->of($gudangs)
+            ->addColumn('Actions', function ($data) {
+                return '<a type="button" href="/dashboard/admin/gudang/' . $data->id . '/edit" class="btn btn-primary btn-sm">Update</a>' .
+                    '    <button type="button" class="btn btn-danger btn-sm" id="adminDeleteGudang" value="' . $data->id . '">Delete</button>';
+            })
+            ->rawColumns(['Actions'])
+            ->make(true);
+    }
+
+    /**
+     * Open gudang input form
+     *
+     */
+    public function create()
+    {
+        return view('admin.gudang.create');
     }
 
     /**
@@ -30,54 +49,54 @@ class GudangController extends Controller
         $this->authorize('create', new Gudang);
 
         $newGudang = $request->validate([
-            'alamat'       => 'required'
+            'nama_gudang' => 'required',
+            'alamat' => 'required'
         ]);
 
         Gudang::create($newGudang);
 
-        return redirect()->route('gudangs.index');
+        return redirect()->route('dashboard.gudang');
+    }
+
+    /**
+     * Update the specified gudang in storage.
+     *
+     * @param  Integer  $id - id of gudang
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        // $this->authorize('update', $kategori);
+        return view('admin.gudang.edit', ['gudang' => Gudang::findOrFail($id)]);
     }
 
     /**
      * Update the specified gudang in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Gudang  $gudang
+     * @param  Integer $id - id of gudang
      * @return \Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Gudang $gudang)
+    public function update(Request $request, $id)
     {
-        $this->authorize('update', $gudang);
-
+        $gudang = Gudang::findOrFail($id);
         $gudangData = $request->validate([
+            'nama_gudang' => 'required',
             'alamat' => 'required'
         ]);
         $gudang->update($gudangData);
 
-        $routeParam = request()->only('page', 'q');
-
-        return redirect()->route('gudangs.index', $routeParam);
+        return redirect()->route('dashboard.gudang');
     }
 
     /**
      * Remove the specified gudang from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Gudang  $gudang
+     * @param  Integer $id - Id of gudang
      * @return \Illuminate\Routing\Redirector
      */
-    public function destroy(Request $request, Gudang $gudang)
+    public function delete($id)
     {
-        $this->authorize('delete', $gudang);
-
-        $request->validate(['id' => 'required']);
-
-        if ($request->get('id') == $gudang->id && $gudang->delete()) {
-            $routeParam = request()->only('page', 'q');
-
-            return redirect()->route('gudangs.index', $routeParam);
-        }
-
-        return back();
+        return Gudang::findOrFail($id)->delete();
     }
 }

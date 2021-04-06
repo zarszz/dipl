@@ -59,11 +59,10 @@ class KategoriController extends Controller
         return redirect()->route('dashboard.kategories');
     }
 
-        /**
+    /**
      * Update the specified kategori in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Routing\Redirector
      */
     public function edit($id)
