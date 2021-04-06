@@ -7,20 +7,14 @@ use Illuminate\Http\Request;
 
 class KategoriController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('can:manageKategories,App\Models\User')->except(['index']);
-    }
-
     /**`
      * Display a listing of the kategori.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
     public function index()
     {
+        $this->authorize('view', Kategori::class);
         $kategories = Kategori::all();
         return datatables()->of($kategories)
             ->addColumn('Actions', function ($data) {
@@ -37,7 +31,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', new Kategori);
+        $this->authorize('create', Kategori::class);
         return view('admin.kategoris.create');
     }
 
@@ -49,6 +43,7 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Kategori::class);
         $newKategori = $request->validate([
             'kategori'  => 'required',
             'deskripsi' => 'required',
@@ -67,7 +62,7 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        // $this->authorize('update', $kategori);
+        $this->authorize('update', Kategori::class);
         return view('admin.kategoris.edit', ['kategori' => Kategori::findOrFail($id)]);
     }
 
@@ -80,7 +75,7 @@ class KategoriController extends Controller
      */
     public function update(Request $request)
     {
-        // $this->authorize('update', $kategori);
+        $this->authorize('update', Kategori::class);
         $kategori = Kategori::findorFail($request->id);
         $newKategori = $request->validate([
             'kategori'  => 'required',
@@ -100,6 +95,7 @@ class KategoriController extends Controller
      */
     public function delete($id)
     {
+        $this->authorize('delete', Kategori::class);
         return Kategori::findOrFail($id)->delete();
     }
 }
