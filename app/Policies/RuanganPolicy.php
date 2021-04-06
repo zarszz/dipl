@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Ruangan;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RuanganPolicy
@@ -11,54 +10,51 @@ class RuanganPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the ruangan.
+     * Determine whether the user can manage ruangan.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Ruangan  $ruangan
      * @return mixed
      */
-    public function view(User $user, Ruangan $ruangan)
+    public function view(User $user)
     {
         // Update $user authorization to view $ruangan here.
-        return true;
+        return $user->role_id == 1;
     }
 
     /**
      * Determine whether the user can create ruangan.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Ruangan  $ruangan
      * @return mixed
      */
-    public function create(User $user, Ruangan $ruangan)
+    public function create(User $user)
     {
         // Update $user authorization to create $ruangan here.
-        return true;
+        return $user->role_id == 1;
     }
 
     /**
      * Determine whether the user can update the ruangan.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Ruangan  $ruangan
      * @return mixed
      */
-    public function update(User $user, Ruangan $ruangan)
+    public function update(User $user)
     {
         // Update $user authorization to update $ruangan here.
-        return true;
+        return $user->role_id == 1;
     }
 
     /**
-     * Determine whether the user can delete the ruangan.
+     * Determine whether the user can destroy the ruangan.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Ruangan  $ruangan
      * @return mixed
      */
-    public function delete(User $user, Ruangan $ruangan)
+    public function delete(User $user)
     {
         // Update $user authorization to delete $ruangan here.
-        return true;
+        return $user->role_id == 1;
     }
 }

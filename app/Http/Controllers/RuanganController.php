@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gudang;
 use App\Models\Ruangan;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RuanganController extends Controller
@@ -10,13 +12,29 @@ class RuanganController extends Controller
     /**
      * Display a listing of the ruangan.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
+        $this->authorize('view', Ruangan::class);
         $ruangans = Ruangan::all();
-        return view('ruangans.index', compact('ruangans', 'editableRuangan'));
+        return datatables()->of($ruangans)
+            ->addColumn('Actions', function ($data) {
+                return '<a type="button" href="/dashboard/admin/ruangan/' . $data->id . '/edit" class="btn btn-primary btn-sm">Update</a>' .
+                    ' <button type="button" class="btn btn-danger btn-sm" id="adminDeleteRuangan" value="' . $data->id . '">Delete</button>';
+            })
+            ->rawColumns(['Actions'])
+            ->make(true);
+    }
+
+    /**
+     * Open ruangan input form
+     *
+     */
+    public function create()
+    {
+        $this->authorize('create', Ruangan::class);
+        return view('admin.ruangan.create', ['gudangs' => Gudang::all()]);
     }
 
     /**
@@ -27,17 +45,28 @@ class RuanganController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', new Ruangan);
-
+        $this->authorize('create', Ruangan::class);
         $newRuangan = $request->validate([
-            'nama_ruangan'       => 'required|max:60',
+            'nama_ruangan'  => 'required|max:60',
             'kode_ruangan' => 'required|max:60',
             'kode_gudang' => 'required|integer'
         ]);
 
         Ruangan::create($newRuangan);
 
-        return redirect()->route('ruangans.index');
+        return redirect()->route('dashboard.ruangan');
+    }
+
+    /**
+     * Update the specified ruangan in storage.
+     *
+     * @param  Integer  $id - id of ruangan
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $this->authorize('update', Ruangan::class);
+        return view('admin.ruangan.edit', ['ruangan' => Ruangan::findOrFail($id), 'gudangs' => Gudang::all()]);
     }
 
     /**
@@ -47,41 +76,31 @@ class RuanganController extends Controller
      * @param  \App\Models\Ruangan  $ruangan
      * @return \Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Ruangan $ruangan)
+    public function update(Request $request, $id)
     {
-        $this->authorize('update', $ruangan);
-
+        $this->authorize('update', Ruangan::class);
         $ruanganData = $request->validate([
             'nama_ruangan' => 'required|max:60',
             'kode_ruangan' => 'required|max:60',
             'kode_gudang'  => 'required|integer'
         ]);
+        $ruangan = Ruangan::findOrFail($id);
         $ruangan->update($ruanganData);
 
-        $routeParam = request()->only('page', 'q');
-
-        return redirect()->route('ruangans.index', $routeParam);
+        return redirect()->route('dashboard.ruangan');
     }
 
     /**
      * Remove the specified ruangan from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Ruangan  $ruangan
+     * @param  Integer - id of ruangan
      * @return \Illuminate\Routing\Redirector
      */
-    public function destroy(Request $request, Ruangan $ruangan)
+    public function delete($id)
     {
-        $this->authorize('delete', $ruangan);
-
-        $request->validate(['id' => 'required']);
-
-        if ($request->get('id') == $ruangan->id && $ruangan->delete()) {
-            $routeParam = request()->only('page', 'q');
-
-            return redirect()->route('ruangans.index', $routeParam);
-        }
-
-        return back();
+        $this->authorize('delete', Ruangan::class);
+        $ruangan = Ruangan::findOrFail($id);
+        abort_if($ruangan->barang()->count() > 0, $code=400, $message='Masih terdapat barang pada ruangan tersebut');
+        return $ruangan->delete();
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\GudangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/gudang', function () {
             return view('gudang');
         })->name('dashboard.gudang');
+
+        Route::get('/ruangan', function () {
+            return view('ruangan');
+        })->name('dashboard.ruangan');
 
         Route::get('/barang', function () {
             return view('barang');
@@ -77,55 +82,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/admin/gudang/{id}/edit', [GudangController::class, 'edit'])->name('admin.gudangs.edit');
         Route::get('/admin/gudang/{id}/delete', [GudangController::class, 'delete'])->name('admin.gudangs.delete');
         Route::put('/admin/gudang/{id}', [GudangController::class, 'update'])->name('admin.gudangs.update');
+
+        Route::post('/admin/ruangan', [RuanganController::class, 'store'])->name('admin.ruangans.store');
+        Route::get('/admin/ruangan', [RuanganController::class, 'index'])->name('admin.ruangans.index');
+        Route::get('/admin/ruangan/new', [RuanganController::class, 'create'])->name('admin.ruangans.create');
+        Route::get('/admin/ruangan/{id}/edit', [RuanganController::class, 'edit'])->name('admin.ruangans.edit');
+        Route::get('/admin/ruangan/{id}/delete', [RuanganController::class, 'delete'])->name('admin.ruangans.delete');
+        Route::put('/admin/ruangan/{id}', [RuanganController::class, 'update'])->name('admin.ruangans.update');
     });
-    /*
-    * Ticketings Routes
-    */
-    Route::resource('ticketings', App\Http\Controllers\TicketingController::class);
-
-    /*
-    * Gudangs Routes
-    */
-    Route::resource('gudangs', App\Http\Controllers\GudangController::class);
-
-    /*
-    * Barangs Routes
-    */
-    Route::resource('barangs', App\Http\Controllers\BarangController::class);
-
-    /*
-    * AuditLogs Routes
-    */
-    Route::resource('audit_logs', App\Http\Controllers\AuditLogController::class);
-
-    /*
-    * UserRoles Routes
-    */
-    // Route::resource('user_roles', App\Http\Controllers\UserRoleController::class);
-
-    /*
-    * Roles Routes
-    */
-    Route::resource('roles', App\Http\Controllers\RoleController::class);
-
-    /*
-    * Pembayarans Routes
-    */
-    Route::resource('pembayarans', App\Http\Controllers\PembayaranController::class);
-
-
-    /*
-    * Kendaraans Routes
-    */
-    Route::resource('kendaraans', App\Http\Controllers\KendaraanController::class);
-
-    /*
-    * Ruangans Routes
-    */
-    Route::resource('ruangans', App\Http\Controllers\RuanganController::class);
-
-    /*
-    * Kategoris Routes
-    */
-    Route::resource('kategoris', App\Http\Controllers\KategoriController::class);
 });

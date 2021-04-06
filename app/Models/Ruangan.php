@@ -29,4 +29,9 @@ class Ruangan extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function barang() {
+        return $this->hasMany(Barang::class, 'kode_ruangan');
+    }
+
 }
