@@ -10,7 +10,7 @@ class GudangController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:manageGudang,App\Models\User')->except(['index']);
+        $this->middleware('can:manageGudang,App\Models\Gudang')->except(['index']);
     }
 
     /**
@@ -20,13 +20,18 @@ class GudangController extends Controller
     public function index()
     {
         $gudangs = Gudang::all();
-        return datatables()->of($gudangs)
-            ->addColumn('Actions', function ($data) {
+        $dataTables = datatables()->of($gudangs);
+        if (auth()->user()->can('manageGudang')) {
+            $dataTables->addColumn('Actions', function ($data) {
                 return '<a type="button" href="/dashboard/admin/gudang/' . $data->id . '/edit" class="btn btn-primary btn-sm">Update</a>' .
                     '    <button type="button" class="btn btn-danger btn-sm" id="adminDeleteGudang" value="' . $data->id . '">Delete</button>';
-            })
-            ->rawColumns(['Actions'])
-            ->make(true);
+            });
+        } else {
+            $dataTables->addColumn('Actions', function ($data) {
+                return '<a type="button" href="/dashboard/admin/gudang/' . $data->id . '/edit" class="btn btn-primary btn-sm">Cek Barang</a>';
+            });
+        }
+        return $dataTables->rawColumns(['Actions'])->make(true);
     }
 
     /**
