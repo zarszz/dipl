@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'alamat' => 'ciendog babakan kampret',
             'jenis_kelamin' => 'pria',
-            'role_id' => 3,
+            'role_id' => 2,
             'email' => 'driver@email.com'
         ]);
 

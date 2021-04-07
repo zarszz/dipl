@@ -15,7 +15,7 @@ class BarangSeeder extends Seeder
     public function run()
     {
         Barang::create([
-            'user_id' => 2,
+            'user_id' => 3,
             'kode_gudang' => 1,
             'kode_ruangan' => 1,
             'nama_brg' => 'barang si ucok 1',
@@ -25,7 +25,7 @@ class BarangSeeder extends Seeder
         ]);
 
         Barang::create([
-            'user_id' => 2,
+            'user_id' => 3,
             'kode_gudang' => 1,
             'kode_ruangan' => 2,
             'nama_brg' => 'barang si ucok 2',
@@ -35,10 +35,20 @@ class BarangSeeder extends Seeder
         ]);
 
         Barang::create([
-            'user_id' => 2,
+            'user_id' => 4,
             'kode_gudang' => 1,
             'kode_ruangan' => 2,
-            'nama_brg' => 'furniture ucok',
+            'nama_brg' => 'furniture otong',
+            'kode_kategori' => 1,
+            'kode_kendaraan' => 1,
+            'jumlah_brg' => 1
+        ]);
+
+        Barang::create([
+            'user_id' => 4,
+            'kode_gudang' => 1,
+            'kode_ruangan' => 2,
+            'nama_brg' => 'jendela spesial otong',
             'kode_kategori' => 1,
             'kode_kendaraan' => 1,
             'jumlah_brg' => 1

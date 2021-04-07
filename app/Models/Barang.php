@@ -10,7 +10,7 @@ class Barang extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama_brg', 'jenis_brg', 'jumlah_brg', 'kode_gudang', 'kode_ruangan', 'user_id'];
+    protected $fillable = ['nama_brg', 'jenis_brg', 'jumlah_brg', 'kode_gudang', 'kode_ruangan', 'kode_kategori', 'user_id'];
 
     public function getTitleLinkAttribute()
     {

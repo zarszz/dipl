@@ -16,9 +16,7 @@
 <link href="{{ asset('css/jquery.datetimepicker.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/buttons.dataTables.min.css') }}">
 <style>
-    Overrides to match the Tailwind CSS
-
-    .dataTables_wrapper {
+    Overrides to match the Tailwind CSS .dataTables_wrapper {
         padding-top: 0.25rem;
         padding-bottom: 0.25rem
     }
@@ -28,7 +26,8 @@
         border-color: #d2d6dc
     }
 
-    table.dataTable tbody td, table.dataTable tbody th {
+    table.dataTable tbody td,
+    table.dataTable tbody th {
         padding: 0.75rem 1rem;
         border-bottom-width: 1px;
         border-color: #d2d6dc
@@ -40,7 +39,8 @@
         align-items: center
     }
 
-    .dataTables_filter, .dataTables_info {
+    .dataTables_filter,
+    .dataTables_info {
         padding: 1rem
     }
 
@@ -74,7 +74,11 @@
         border-color: #d2d6dc
     }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button.current:not(.disabled), .dataTables_wrapper .dataTables_paginate .paginate_button.next:not(.disabled), .dataTables_wrapper .dataTables_paginate .paginate_button.previous:not(.disabled), .dataTables_wrapper .dataTables_paginate .paginate_button:not(.disabled), button.dt-button {
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current:not(.disabled),
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next:not(.disabled),
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous:not(.disabled),
+    .dataTables_wrapper .dataTables_paginate .paginate_button:not(.disabled),
+    button.dt-button {
         transition-duration: 150ms;
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
@@ -94,7 +98,16 @@
         margin-bottom: 0
     }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button.next:focus:not(.disabled), .dataTables_wrapper .dataTables_paginate .paginate_button.next:hover:not(.disabled), .dataTables_wrapper .dataTables_paginate .paginate_button.previous:focus:not(.disabled), .dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover:not(.disabled), .dataTables_wrapper .dataTables_paginate .paginate_button:focus:not(.disabled), .dataTables_wrapper .dataTables_paginate .paginate_button:hover:not(.disabled), button.dt-button:focus, button.dt-button:focus:not(.disabled), button.dt-button:hover, button.dt-button:hover:not(.disabled) {
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next:focus:not(.disabled),
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next:hover:not(.disabled),
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous:focus:not(.disabled),
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover:not(.disabled),
+    .dataTables_wrapper .dataTables_paginate .paginate_button:focus:not(.disabled),
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover:not(.disabled),
+    button.dt-button:focus,
+    button.dt-button:focus:not(.disabled),
+    button.dt-button:hover,
+    button.dt-button:hover:not(.disabled) {
         background-color: #edf2f7 !important;
         border-width: 1px !important;
         border-color: #d2d6dc !important;
@@ -107,7 +120,8 @@
         border-color: #8da2fb !important
     }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
         background-color: #8da2fb !important;
         color: #ffffff !important;
         border-color: #8da2fb !important
@@ -122,6 +136,16 @@
     .dataTables_length {
         padding-top: 1.25rem;
     }
+
+    td.details-control {
+        background: url({{  URL::asset("images/datatables/details_open.png") }}) no-repeat center center;
+        cursor: pointer;
+    }
+
+    tr.shown td.details-control {
+        background: url({{  URL::asset("images/datatables/details_close.png") }}) no-repeat center center;
+    }
+
 </style>
 
 

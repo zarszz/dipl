@@ -57,6 +57,11 @@ class RuanganController extends Controller
         return redirect()->route('dashboard.ruangan');
     }
 
+    public function getRuanganByGudang($kode_gudang)
+    {
+        return Ruangan::select('id', 'nama_ruangan')->where('kode_gudang', $kode_gudang)->get();
+    }
+
     /**
      * Update the specified ruangan in storage.
      *

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\GudangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
@@ -87,7 +88,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/admin/ruangan', [RuanganController::class, 'index'])->name('admin.ruangans.index');
         Route::get('/admin/ruangan/new', [RuanganController::class, 'create'])->name('admin.ruangans.create');
         Route::get('/admin/ruangan/{id}/edit', [RuanganController::class, 'edit'])->name('admin.ruangans.edit');
+        Route::get('/admin/ruangan/{kode_gudang}/gudang', [RuanganController::class, 'getRuanganByGudang'])->name('admin.ruangans.gudangs');
         Route::get('/admin/ruangan/{id}/delete', [RuanganController::class, 'delete'])->name('admin.ruangans.delete');
         Route::put('/admin/ruangan/{id}', [RuanganController::class, 'update'])->name('admin.ruangans.update');
+
+        Route::post('/admin/barang', [BarangController::class, 'store'])->name('admin.barangs.store');
+        Route::get('/admin/barang', [BarangController::class, 'index'])->name('admin.barangs.index');
+        Route::get('/admin/barang/new', [BarangController::class, 'create'])->name('admin.barangs.create');
+        Route::get('/admin/barang/{id}/edit', [BarangController::class, 'edit'])->name('admin.barangs.edit');
+        Route::get('/admin/barang/{id}/delete', [BarangController::class, 'delete'])->name('admin.barangs.delete');
+        Route::put('/admin/barang/{id}', [BarangController::class, 'update'])->name('admin.barangs.update');
+        Route::get('/admin/barang/{id}/detail', [BarangController::class, 'detail'])->name('admin.barangs.detail');
     });
 });

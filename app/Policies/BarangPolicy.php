@@ -20,7 +20,7 @@ class BarangPolicy
     public function view(User $user, Barang $barang)
     {
         // Update $user authorization to view $barang here.
-        return true;
+        return $user->role_id == 1 || $user->id == $barang->user_id;
     }
 
     /**
@@ -30,10 +30,10 @@ class BarangPolicy
      * @param  \App\Models\Barang  $barang
      * @return mixed
      */
-    public function create(User $user, Barang $barang)
+    public function create(User $user)
     {
-        // Update $user authorization to create $barang here.
-        return true;
+        // Only admin and user can create barang
+        return ! $user->role_id == 2;
     }
 
     /**
@@ -46,7 +46,7 @@ class BarangPolicy
     public function update(User $user, Barang $barang)
     {
         // Update $user authorization to update $barang here.
-        return true;
+        return $user->role_id == 1 || $user->id == $barang->user_id;
     }
 
     /**
@@ -59,6 +59,6 @@ class BarangPolicy
     public function delete(User $user, Barang $barang)
     {
         // Update $user authorization to delete $barang here.
-        return true;
+        return $user->role_id == 1 || $user->id == $barang->user_id;
     }
 }
