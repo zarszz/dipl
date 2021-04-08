@@ -4,6 +4,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\GudangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -93,11 +94,22 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::put('/admin/ruangan/{id}', [RuanganController::class, 'update'])->name('admin.ruangans.update');
 
         Route::post('/admin/barang', [BarangController::class, 'store'])->name('admin.barangs.store');
+        Route::post('/user/barang', [BarangController::class, 'store'])->name('user.barangs.store');
         Route::get('/admin/barang', [BarangController::class, 'index'])->name('admin.barangs.index');
         Route::get('/admin/barang/new', [BarangController::class, 'create'])->name('admin.barangs.create');
+        Route::get('/user/barang/new', [BarangController::class, 'create'])->name('user.barangs.create');
         Route::get('/admin/barang/{id}/edit', [BarangController::class, 'edit'])->name('admin.barangs.edit');
         Route::get('/admin/barang/{id}/delete', [BarangController::class, 'delete'])->name('admin.barangs.delete');
         Route::put('/admin/barang/{id}', [BarangController::class, 'update'])->name('admin.barangs.update');
         Route::get('/admin/barang/{id}/detail', [BarangController::class, 'detail'])->name('admin.barangs.detail');
+
+        Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('user.pembayarans.store');
+        Route::get('/admin/pembayaran/{id}', [PembayaranController::class, 'view'])->name('user.pembayarans.view');
+        Route::get('/pembayaran/new', [PembayaranController::class, 'createPembayaran'])->name('user.pembayarans.create');
+        Route::get('/user/pembayaran/{id}/upload_bukti', [PembayaranController::class, 'editBukti'])->name('user.pembayarans.bukti.edit');
+        Route::get('/pembayarans', [PembayaranController::class, 'index'])->name('pembayarans.index');
+        Route::get('/admin/pembayaran/{id}/verify', [PembayaranController::class, 'verify'])->name('admin.pembayarans.verify');
+        Route::get('/admin/pembayaran/{id}/delete', [PembayaranController::class, 'delete'])->name('user.pembayarans.bukti.delete');
+        Route::put('/pembayaran/{id}/upload_bukti', [PembayaranController::class, 'updateBukti'])->name('user.pembayarans.bukti.update');
     });
 });

@@ -70,9 +70,15 @@ class BarangController extends Controller
             'jumlah_brg' => 'required'
         ]);
         $newBarang['user_id'] = auth()->user()->id;
-        Barang::create($newBarang);
-
-        return redirect()->route('dashboard.barang');
+        $barang = Barang::create($newBarang);
+        if(auth()->user()->isAdmin()) return redirect()->route('dashboard.barang');
+        $harga = 100000 * $barang->jumlah_brg;
+        $dibayar = [
+            'harga' => $harga,
+            'ppn' => $harga * 0.10,
+            'total' => $harga + ($harga * 0.10)
+        ];
+        return view('user.barang.create_pembayaran', ['dibayar' => $dibayar, 'barang' => $barang, 'user' => auth()->user()]);
     }
 
     public function edit($id)

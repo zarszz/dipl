@@ -19,8 +19,13 @@
             <div class="card">
                 <div class="card-body card-content align-items-center">
                     <div class="col-3 align-item-center">
-                        <a href="{{ route('admin.barangs.create') }}"
-                            class="btn btn-success me-1 mb-1 btn-block" style="font-weight:bold;">Tambah Barang Baru</a>
+                        @if (auth()->user()->isAdmin())
+                            <a href="{{ route('admin.barangs.create') }}" class="btn btn-success me-1 mb-1 btn-block"
+                                style="font-weight:bold;">Tambah Barang Baru</a>
+                        @else
+                            <a href="{{ route('user.barangs.create') }}" class="btn btn-success me-1 mb-1 btn-block"
+                                style="font-weight:bold;">Tambah Barang Baru</a>
+                        @endif
                     </div>
                     <table id="table_barang" class="table table-striped dataTable w-full table-hover"
                         data-plugin="dataTable">

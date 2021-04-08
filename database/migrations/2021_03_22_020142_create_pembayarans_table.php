@@ -19,6 +19,7 @@ class CreatePembayaransTable extends Migration
             $table->string('no_bayar')->unique();
             $table->string('status');
             $table->decimal('jumlah_bayar', $precision = 15, $scale = 2);
+            $table->string('bukti_bayar')->nullable();
 
             /**
              * Definisi relasi antara pembayaran dan user

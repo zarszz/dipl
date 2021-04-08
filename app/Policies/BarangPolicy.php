@@ -33,7 +33,7 @@ class BarangPolicy
     public function create(User $user)
     {
         // Only admin and user can create barang
-        return ! $user->role_id == 2;
+        return !($user->role_id == 2);
     }
 
     /**

@@ -11,29 +11,14 @@ class PembayaranPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the pembayaran.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Pembayaran  $pembayaran
-     * @return mixed
-     */
-    public function view(User $user, Pembayaran $pembayaran)
-    {
-        // Update $user authorization to view $pembayaran here.
-        return true;
-    }
-
-    /**
      * Determine whether the user can create pembayaran.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Pembayaran  $pembayaran
      * @return mixed
      */
-    public function create(User $user, Pembayaran $pembayaran)
+    public function create(User $user)
     {
-        // Update $user authorization to create $pembayaran here.
-        return true;
+        return !($user->role_id == 2);
     }
 
     /**
@@ -46,7 +31,19 @@ class PembayaranPolicy
     public function update(User $user, Pembayaran $pembayaran)
     {
         // Update $user authorization to update $pembayaran here.
-        return true;
+        return $user->role_id == 1 || $user->id == $pembayaran->user_id;
+    }
+
+    /**
+     * Determine whether the user can verify the pembayaran.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    public function verify(User $user)
+    {
+        // Update $user authorization to verify $pembayaran here.
+        return $user->role_id == 1;
     }
 
     /**
@@ -59,6 +56,6 @@ class PembayaranPolicy
     public function delete(User $user, Pembayaran $pembayaran)
     {
         // Update $user authorization to delete $pembayaran here.
-        return true;
+        return $user->role_id == 1;
     }
 }
