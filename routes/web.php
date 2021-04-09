@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuditLogController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\GudangController;
 use App\Http\Controllers\KategoriController;
@@ -51,9 +52,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             return view('barang');
         })->name('dashboard.barang');
 
-        Route::get('/log_audit', function () {
-            return view('log_audit');
-        })->name('dashboard.log_audit');
+        Route::get('/audit_log', function () {
+            return view('audit_log');
+        })->name('dashboard.audit_log');
 
         Route::get('/ticketing', function () {
             return view('ticketing');
@@ -125,5 +126,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/ticketing/{id}/delete', [TicketingController::class, 'delete'])->name('ticketing.delete');
         Route::put('/ticketing/{id}', [TicketingController::class, 'update'])->name('ticketing.update');
         Route::put('/admin/ticketing/{id}/update_status', [TicketingController::class, 'updateStatus'])->name('ticketing.update_status');
+
+        Route::get('/audit_logs', [AuditLogController::class, 'index'])->name('audit_logs');
     });
 });
