@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AuditLog;
 use App\Models\Pembayaran;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -67,9 +68,13 @@ class PembayaranController extends Controller
     {
         $this->authorize('verify', Pembayaran::class);
         $pembayaran = Pembayaran::findOrFail($id);
-        // $this->authoriza('verify', Pembayaran::class);
         $pembayaran->status = "verified";
         $pembayaran->save();
+        AuditLog::create([
+            'keterangan' => 'Verifikasi pembayaran dengan nomor ' . $pembayaran->no_bayar,
+            'aksi' => 'verifikasi-pembayaran',
+            'user_id' => auth()->user()->id
+        ]);
         return response()->json(['status' => 'oke'], 200);
     }
 

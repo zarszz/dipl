@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AuditLog;
 use App\Models\Barang;
 use App\Models\Gudang;
 use App\Models\Kategori;
@@ -82,6 +83,11 @@ class BarangController extends Controller
             'ppn' => $harga * 0.10,
             'total' => $harga + ($harga * 0.10)
         ];
+        AuditLog::create([
+            'keterangan' => 'Menyimpan barang dengan nama ' . $barang->nama_brg . ' sebanyak ' . $barang->jumlah_brg . ' buah',
+            'aksi' => 'simpan-barang',
+            'user_id' => auth()->user()->id
+        ]);
         return view('user.barang.create_pembayaran', ['dibayar' => $dibayar, 'barang' => $barang, 'user' => auth()->user()]);
     }
 
@@ -114,6 +120,11 @@ class BarangController extends Controller
         }
         $barang->jumlah_brg = $barang->jumlah_brg - $amount;
         $barang->save();
+        AuditLog::create([
+            'keterangan' => 'Mengambil barang dengan id ' . $barang->id . ' sebanyak ' . $amount . ' buah',
+            'aksi' => 'tarik-barang',
+            'user_id' => auth()->user()->id
+        ]);
         return response()->json(['status' => 'success'], 200);
     }
 

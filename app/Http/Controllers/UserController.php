@@ -113,6 +113,7 @@ class UserController extends Controller
     public function verify($id)
     {
         $user = User::findOrFail($id);
+        $this->authorize('create', User::class);
         $user->status = "verified";
         $user->save();
         AuditLog::create([
@@ -125,29 +126,16 @@ class UserController extends Controller
     public function getRegisteredUserByTime()
     {
         $data = [];
-        // $result = User::selectRaw("created_at, date_part('year', created_at) as year, date_part('month', created_at) as month, count(*) AS data")
-        //     ->groupBy('year', 'month')
-        //     ->orderBy('year', 'asc')
-        //     ->get();
         $users = User::orderBy('created_at')->get()->groupBy(function ($item) {
             return $item->created_at->format('Y-m-d');
         });
 
         $i = 0;
         foreach ($users as $key => $post) {
-            // $day = $key;
-            // $totalCount = $post->count();
             $data[$i]['x'] = $key;
             $data[$i]['y'] = $post->count();
             $i++;
         }
-
-        // for ($i = 0; $i < sizeof($result); $i++) {
-        //     // $data[$i]['x'] = $result[$i]['month'] . '-' .$result[$i]['year'];
-        //     // $data[$i]['x'] = intVal($result[$i]['month'] . $result[$i]['year']);
-        //     $data[$i]['x'] = $result[$i]['created_at'];
-        //     $data[$i]['y'] = $result[$i]['data'];
-        // }
         return response($data, 200);
     }
 }
