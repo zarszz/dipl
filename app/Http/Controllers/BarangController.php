@@ -86,7 +86,9 @@ class BarangController extends Controller
         AuditLog::create([
             'keterangan' => 'Menyimpan barang dengan nama ' . $barang->nama_brg . ' sebanyak ' . $barang->jumlah_brg . ' buah',
             'aksi' => 'simpan-barang',
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
+            'kode_gudang' => $barang->kode_gudang,
+            'kode_barang' => $barang->id
         ]);
         return view('user.barang.create_pembayaran', ['dibayar' => $dibayar, 'barang' => $barang, 'user' => auth()->user()]);
     }
@@ -123,7 +125,9 @@ class BarangController extends Controller
         AuditLog::create([
             'keterangan' => 'Mengambil barang dengan id ' . $barang->id . ' sebanyak ' . $amount . ' buah',
             'aksi' => 'tarik-barang',
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
+            'kode_gudang' => $barang->kode_gudang,
+            'kode_barang' => $barang->id
         ]);
         return response()->json(['status' => 'success'], 200);
     }
