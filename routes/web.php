@@ -100,8 +100,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/user/barang/new', [BarangController::class, 'create'])->name('user.barangs.create');
         Route::get('/admin/barang/{id}/edit', [BarangController::class, 'edit'])->name('admin.barangs.edit');
         Route::get('/admin/barang/{id}/delete', [BarangController::class, 'delete'])->name('admin.barangs.delete');
-        Route::put('/admin/barang/{id}', [BarangController::class, 'update'])->name('admin.barangs.update');
         Route::get('/admin/barang/{id}/detail', [BarangController::class, 'detail'])->name('admin.barangs.detail');
+        Route::put('/admin/barang/{id}', [BarangController::class, 'update'])->name('admin.barangs.update');
+        Route::get('/user/barang/{id}/tarik', [BarangController::class, 'tarik'])->name('user.barangs.tarik');
 
         Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('user.pembayarans.store');
         Route::get('/admin/pembayaran/{id}', [PembayaranController::class, 'view'])->name('user.pembayarans.view');

@@ -26,9 +26,13 @@ class BarangController extends Controller
             ->addColumn('Actions', function ($data) use ($user) {
                 if ($user->isDriver()) {
                     return '<a type="button" href="/dashboard/admin/barang/' . $data->id . '/edit" class="btn btn-primary btn-sm">Cek Barang</a>';
+                } else if ($user->isAdmin()){
+                    return '<a type="button" href="/dashboard/admin/barang/' . $data->id . '/edit" class="btn btn-primary btn-sm">Update</a>' .
+                    ' <button type="button" class="btn btn-danger btn-sm" id="deleteBarang" value="' . $data->id . '">Delete</button>';
+                } else {
+                    return '<button type="button" class="btn btn-primary btn-sm" id="userTarikBarang" value="' . $data->id . '">Tarik</a>' .
+                    ' <button type="button" class="btn btn-danger btn-sm" id="deleteBarang" value="' . $data->id . '">Delete</button>';
                 }
-                return '<a type="button" href="/dashboard/admin/barang/' . $data->id . '/edit" class="btn btn-primary btn-sm">Update</a>' .
-                    ' <button type="button" class="btn btn-danger btn-sm" id="adminDeleteBarang" value="' . $data->id . '">Delete</button>';
             })
             ->rawColumns(['Actions'])
             ->make(true);
@@ -87,6 +91,30 @@ class BarangController extends Controller
         $this->authorize('update', $barang);
         $ruangan = Ruangan::findOrFail($barang->kode_ruangan);
         return view('admin.barang.edit', ['barang' => $barang, 'ruangan' => $ruangan, 'gudangs' => Gudang::all(), 'kendaraans' => Kendaraan::all(), 'kategories' => Kategori::all()]);
+    }
+    /**
+     * Tarik the specified barang in storage.
+     * Ajax !!
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Routing\Redirector
+     */
+    public function tarik(Request $request, $id)
+    {
+        $barang = Barang::find($id);
+        $this->authorize('update', $barang);
+        $request = $request->all();
+
+        $amount = $request['jumlah_brg'];
+        if ($amount > $barang->jumlah_brg) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'jumlah barang yang ditarik lebih dari yang tersimpan !!'
+            ], 400);
+        }
+        $barang->jumlah_brg = $barang->jumlah_brg - $amount;
+        $barang->save();
+        return response()->json(['status' => 'success'], 200);
     }
 
     /**

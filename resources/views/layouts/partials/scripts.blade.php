@@ -8,7 +8,6 @@
 @if (str_contains(request()->route()->uri, 'dashboard'))
     <script src="{{ asset('/js/extensions/sweetalert2.js') }}"></script>
     <script src="{{ asset('/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
     <!-- jQuery -->
     <script type="text/javascript" src="{{ asset('js/jquery-3.4.1.min.js') }} "></script>
@@ -583,7 +582,7 @@
             })
         });
 
-        $(document).on('click', '#adminDeleteBarang', function() {
+        $(document).on('click', '#deleteBarang', function() {
             var barang_id = $(this).val();;
             Swal.fire({
                 title: 'Hapus barang tersebut ??',
@@ -622,6 +621,48 @@
             })
         });
 
+        $(document).on('click', '#userTarikBarang', function() {
+            var tr = $(this).closest('tr');
+            var barang = barangsTable.row(tr).data();
+            const {
+                value: amount
+            } = Swal.fire({
+                title: 'Mengambil barang',
+                icon: 'info',
+                input: 'range',
+                inputLabel: 'Silahkan geser menu dibawah',
+                inputAttributes: {
+                    min: 1,
+                    max: barang.jumlah_brg,
+                    step: 1
+                },
+                inputValue: 1
+            }).then((result) => {
+                $.ajax({
+                    url: `{{ env('APP_URL') }}/dashboard/user/barang/${barang.id}/tarik`,
+                    type: "GET",
+                    data: $.param({
+                        'jumlah_brg': result.value
+                    }),
+                    success: function() {
+                        barangsTable.ajax.reload();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil.',
+                            text: 'Penarikan barang berhasil !!'
+                        });
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Terjadi kesalahan !!'
+                        });
+                    }
+                })
+            })
+        });
+
         function setDaftarRuangan() {
             let kode_gudang = document.getElementById("ddlSelectGudang").value;
             let ddlSelectRuangan = document.getElementById("ddlSelectRuangan");
@@ -651,8 +692,8 @@
                 '<tr>' +
                 '<td><img src="' + pembayaran.bukti_bayar +
                 '" width="600" height="600" alt="Bukti Pembayaran"  data-toggle="modal" data-target="#exampleModal"></td>' +
-            '</tr>' +
-            '</table>';
+                '</tr>' +
+                '</table>';
         }
 
         $(document).ready(function() {
