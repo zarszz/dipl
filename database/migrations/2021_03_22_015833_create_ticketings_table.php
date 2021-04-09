@@ -27,6 +27,7 @@ class CreateTicketingsTable extends Migration
                   ->onUpdate('cascade');
 
             $table->longText('pesan');
+            $table->text('status')->default('pending');
 
             $table->timestamps();
         });

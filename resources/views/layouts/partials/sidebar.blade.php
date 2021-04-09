@@ -14,6 +14,7 @@
     @if (auth()->user()->role_id != 2) <!-- user saat ini bukan driver -->
         <x-maz-sidebar-item name="Pembayaran" :link="route('dashboard.pembayaran')" icon="bi bi-wallet"></x-maz-sidebar-item>
         <x-maz-sidebar-item name="Gudang" :link="route('dashboard.gudang')" icon="bi bi-building"></x-maz-sidebar-item>
+        <x-maz-sidebar-item name="Ticketing" :link="route('dashboard.ticketing')" icon="bi bi-question-circle-fill"></x-maz-sidebar-item>
         <x-maz-sidebar-item name="Audit Log" :link="route('dashboard.log_audit')" icon="bi bi-clock-history"></x-maz-sidebar-item>
     @endif
 

@@ -10,7 +10,7 @@ class Ticketing extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'pesan'];
+    protected $fillable = ['user_id', 'pesan', 'status'];
 
     public function getTitleLinkAttribute()
     {

@@ -6,6 +6,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\TicketingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/log_audit', function () {
             return view('log_audit');
         })->name('dashboard.log_audit');
+
+        Route::get('/ticketing', function () {
+            return view('ticketing');
+        })->name('dashboard.ticketing');
 
         Route::get('/user', function () {
             return view('user');
@@ -112,5 +117,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/admin/pembayaran/{id}/verify', [PembayaranController::class, 'verify'])->name('admin.pembayarans.verify');
         Route::get('/admin/pembayaran/{id}/delete', [PembayaranController::class, 'delete'])->name('user.pembayarans.bukti.delete');
         Route::put('/pembayaran/{id}/upload_bukti', [PembayaranController::class, 'updateBukti'])->name('user.pembayarans.bukti.update');
+
+        Route::post('/ticketing', [TicketingController::class, 'store'])->name('ticketing.store');
+        Route::get('/ticketings', [TicketingController::class, 'index'])->name('ticketing.index');
+        Route::get('/ticketing/new', [TicketingController::class, 'create'])->name('ticketing.create');
+        Route::get('/ticketing/{id}/edit', [TicketingController::class, 'edit'])->name('ticketing.edit');
+        Route::get('/ticketing/{id}/delete', [TicketingController::class, 'delete'])->name('ticketing.delete');
+        Route::put('/ticketing/{id}', [TicketingController::class, 'update'])->name('ticketing.update');
+        Route::put('/admin/ticketing/{id}/update_status', [TicketingController::class, 'updateStatus'])->name('ticketing.update_status');
     });
 });
