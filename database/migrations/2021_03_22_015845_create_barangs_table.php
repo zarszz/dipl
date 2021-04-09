@@ -69,6 +69,7 @@ class CreateBarangsTable extends Migration
 
             $table->string('nama_brg');
             $table->unsignedInteger('jumlah_brg');
+            $table->softDeletes();
 
             $table->timestamps();
         });
