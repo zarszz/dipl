@@ -1,4 +1,4 @@
-<x-maz-sidebar :href="route('index')" :logo="asset('images/logo/logo.png')">
+<x-maz-sidebar :href="route('index')" :logo="asset('images/logo/warehouse_logo.png')">
 
     <!-- Add Sidebar Menu Items Here -->
 

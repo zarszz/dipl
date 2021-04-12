@@ -2,7 +2,7 @@
 
     <div id="auth-left">
         <div class="auth-logo">
-            <a href="{{ route('index') }}"><img src="{{ asset('/images/logo/logo.png') }}" alt="Logo"></a>
+            <a href="{{ route('index') }}"><img src="{{ asset('/images/logo/warehouse_logo.png') }}" alt="Logo"></a>
         </div>
         <h1 class="auth-title">Login</h1>
         <p class="auth-subtitle mb-5">Silahkan login untuk mengakses dashboard.</p>

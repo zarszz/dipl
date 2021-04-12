@@ -54,7 +54,7 @@
                             </ul>
                             <div class="header-btn">
                                 @auth
-                                    <a href="{{ route('dashboard') }}" class="theme-btn">Dashboard/a>
+                                    <a href="{{ route('dashboard') }}" class="theme-btn">Dashboard</a>
                                 @else
                                     <a href="{{ route('login') }}" class="theme-btn">Login</a>
                                     @if (Route::has('register'))

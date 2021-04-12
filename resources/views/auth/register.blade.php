@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div id="auth-left">
         <div class="auth-logo">
-            <a href="{{ route('register') }}"><img src="{{ asset('/images/logo/logo.png') }}" alt="Logo"></a>
+            <a href="{{ route('register') }}"><img src="{{ asset('/images/logo/warehouse_logo.png') }}" alt="Logo"></a>
         </div>
         <h1 class="auth-title">Daftar</h1>
         <p class="auth-subtitle mb-5">Satu langkah lagi untuk bergabung bersama kami</p>
@@ -45,7 +45,7 @@
             <div class="form-group position-relative mb-4">
                 <p style="color: #6c757d; font-size: 22px;">Tanggal Lahir</p>
                 <input type="text" id="datetimepicker" name="tgl_lahir">
-            </div>>
+            </div>
             <div class="form-group position-relative mb-4">
                 <p style="color: #6c757d; font-size: 22px;">Jenis kelamin</p>
                 <div class="form-check">

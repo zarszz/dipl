@@ -19,6 +19,10 @@
         <link rel="stylesheet" href="{{ mix('css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ mix('css/pages/auth.css') }}">
 
+        @if (str_contains(request()->route()->uri, 'register'))
+        <link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}">
+        @endif
+
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
@@ -36,5 +40,6 @@
                 </div>
             </div>
         </div>
+        @include('layouts.partials.scripts')
     </body>
 </html>
