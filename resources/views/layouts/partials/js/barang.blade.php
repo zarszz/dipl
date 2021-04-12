@@ -112,6 +112,15 @@
         })
     });
 
+    $(document).on('click', '#unverified_tambah_barang', function() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Status member anda belum terverifikasi !!!',
+            footer: "<a href={{ route('ticketing.create') }}>Silahkan membuat ticket untuk meminta verifikasi !!</a>"
+        })
+    })
+
     $(document).on('click', '#deleteBarang', function() {
         var barang_id = $(this).val();;
         Swal.fire({

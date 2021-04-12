@@ -54,6 +54,7 @@ class BarangController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Barang::class);
         return view('admin.barang.create', ['gudangs' => Gudang::all(), 'kendaraans' => Kendaraan::all(), 'kategories' => Kategori::all()]);
     }
 
