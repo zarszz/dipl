@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 })->name('index');
 
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle']);
