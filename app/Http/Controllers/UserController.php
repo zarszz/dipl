@@ -86,6 +86,7 @@ class UserController extends Controller
         ]);
 
         $user = User::find($request['id']);
+        $this->authorize('update', $user);
         $user->nama = $request['nama'];
         if ($user->email != $request['email']) {
             $user->email = $request['email'];
@@ -96,7 +97,29 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect(route('dashboard.user'));
+        if(auth()->user()->isAdmin()) return redirect(route('dashboard.user'));
+        return redirect()->back();
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $request->validate([
+            'current_password' => ['required', 'string', 'max:255'],
+            'password1' => ['required', 'string', 'max:255'],
+            'password2' => ['required', 'string', 'max:255'],
+        ]);
+
+        $user = User::find($id);
+        $this->authorize('update', $user);
+
+        abort_if(!Hash::check($request['current_password'], $user->password), 400, 'Password saat ini tidak sama !!');
+        abort_if($request['password1'] !== $request['password2'], 400, 'Password baru tidak sama !!');
+
+        $user->password = Hash::make($request['password1']);;
+        $user->save();
+
+        if(auth()->user()->isAdmin()) return redirect(route('dashboard.user'));
+        return redirect()->back();
     }
 
     public function delete($id)

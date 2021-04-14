@@ -76,6 +76,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/admin/user/{id}/verif', [UserController::class, 'verify'])->name('admin.user.verif');
         Route::get('/admin/user/edit/{id}', [UserController::class, 'edit']);
         Route::put('/admin/user/update/{id}', [UserController::class, 'update'])->name('admin.user.update');
+        Route::put('/user/user/update/{id}', [UserController::class, 'update'])->name('user.update');
+        Route::put('/user/user/update/{id}/password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
 
         Route::post('/admin/kategori', [KategoriController::class, 'store'])->name('admin.kategories.store');
         Route::get('/admin/kategori', [KategoriController::class, 'index'])->name('admin.kategories.index');
