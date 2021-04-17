@@ -35,8 +35,8 @@ class UserController extends Controller
                 }
             })
             ->addColumn('Actions', function ($data) {
-                return '<a type="button" href="/dashboard/admin/user/edit/' . $data->id . '" class="btn btn-primary btn-sm" id="getDeleteId">Update</a>' .
-                    '    <button type="button" class="btn btn-danger btn-sm" id="adminDeleteUser" value="' . $data->id . '">Delete</button>';
+                return '<a type="button" href="/dashboard/admin/user/edit/' . $data->id . '" class="btn btn-primary btn-sm" id="getDeleteId"><i class="bi bi-pencil-square"></i></a>' .
+                    '    <button type="button" class="btn btn-danger btn-sm" id="adminDeleteUser" value="' . $data->id . '"><i class="bi bi-trash"></i></button>';
             })
             ->rawColumns(['Status', 'Actions'])
             ->make(true);

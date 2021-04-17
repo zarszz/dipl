@@ -23,8 +23,8 @@ class GudangController extends Controller
         $dataTables = datatables()->of($gudangs);
         if (auth()->user()->isAdmin()) {
             $dataTables->addColumn('Actions', function ($data) {
-                return '<a type="button" href="/dashboard/admin/gudang/' . $data->id . '/edit" class="btn btn-primary btn-sm">Update</a>' .
-                    '    <button type="button" class="btn btn-danger btn-sm" id="adminDeleteGudang" value="' . $data->id . '">Delete</button>';
+                return '<a type="button" href="/dashboard/admin/gudang/' . $data->id . '/edit" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>' .
+                    '    <button type="button" class="btn btn-danger btn-sm" id="adminDeleteGudang" value="' . $data->id . '"><i class="bi bi-trash"></i></button>';
             });
         } else {
             $dataTables->addColumn('Actions', function ($data) {

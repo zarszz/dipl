@@ -18,8 +18,8 @@ class KategoriController extends Controller
         $kategories = Kategori::all();
         return datatables()->of($kategories)
             ->addColumn('Actions', function ($data) {
-                return '<a type="button" href="/dashboard/admin/kategori/' . $data->id . '/edit" class="btn btn-primary btn-sm">Update</a>' .
-                    '    <button type="button" class="btn btn-danger btn-sm" id="adminDeleteKategori" value="' . $data->id . '">Delete</button>';
+                return '<a type="button" href="/dashboard/admin/kategori/' . $data->id . '/edit" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>' .
+                    '    <button type="button" class="btn btn-danger btn-sm" id="adminDeleteKategori" value="' . $data->id . '"><i class="bi bi-trash"></i></button>';
             })
             ->rawColumns(['Actions'])
             ->make(true);

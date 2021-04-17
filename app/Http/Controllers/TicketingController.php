@@ -18,8 +18,8 @@ class TicketingController extends Controller
         return datatables()
             ->of($ticketings)
             ->addColumn('Actions', function ($data) {
-                return '<a type="button" href="/dashboard/ticketing/' . $data->id . '/edit" class="btn btn-primary btn-sm">Update</a>' .
-                    ' <button type="button" class="btn btn-danger btn-sm" id="deleteTicket" value="' . $data->id . '">Delete</button>';
+                return '<a type="button" href="/dashboard/ticketing/' . $data->id . '/edit" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>' .
+                    ' <button type="button" class="btn btn-danger btn-sm" id="deleteTicket" value="' . $data->id . '"><i class="bi bi-trash"></i></button>';
             })
             ->addColumn('Status', function ($data) {
                 $btnClass = auth()->user()->isAdmin() ? "btn btn-sm" : "btn btn-sm disabled";

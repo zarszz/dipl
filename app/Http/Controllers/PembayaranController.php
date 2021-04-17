@@ -24,12 +24,12 @@ class PembayaranController extends Controller
             ->addColumn('Actions', function ($pembayaran) use ($user) {
                 if (!($user->isAdmin())) {
                     if ($pembayaran->bukti_bayar) {
-                        return '<a type="button" href="/dashboard/user/pembayaran/' . $pembayaran->id . '/upload_bukti" class="btn btn-primary btn-sm">Edit bukti pembayaran</a>';
+                        return '<a type="button" href="/dashboard/user/pembayaran/' . $pembayaran->id . '/upload_bukti" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>';
                     }
                     return '<a type="button" href="/dashboard/user/pembayaran/' . $pembayaran->id . '/upload_bukti" class="btn btn-primary btn-sm">Upload bukti pembayaran</a>';
                 }
-                return '<a type="button" href="/dashboard/admin/pembayaran/' . $pembayaran->id . '/edit" class="btn btn-primary btn-sm">Update</a>' .
-                    ' <button type="button" class="btn btn-danger btn-sm" id="adminDeletePembayaran" value="' . $pembayaran->id . '">Delete</button>';
+                return '<a type="button" href="/dashboard/admin/pembayaran/' . $pembayaran->id . '/edit" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>' .
+                    ' <button type="button" class="btn btn-danger btn-sm" id="adminDeletePembayaran" value="' . $pembayaran->id . '"><i class="bi bi-trash"></i></button>';
             })
             ->addColumn('Verifikasi', function ($pembayaran) use ($user) {
                 if ($user->isAdmin()) {

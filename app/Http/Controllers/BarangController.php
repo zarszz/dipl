@@ -28,11 +28,11 @@ class BarangController extends Controller
                 if ($user->isDriver()) {
                     return '<a type="button" href="/dashboard/admin/barang/' . $data->id . '/edit" class="btn btn-primary btn-sm">Cek Barang</a>';
                 } else if ($user->isAdmin()){
-                    return '<a type="button" href="/dashboard/admin/barang/' . $data->id . '/edit" class="btn btn-primary btn-sm">Update</a>' .
-                    ' <button type="button" class="btn btn-danger btn-sm" id="deleteBarang" value="' . $data->id . '">Delete</button>';
+                    return '<a type="button" href="/dashboard/admin/barang/' . $data->id . '/edit" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>' .
+                    ' <button type="button" class="btn btn-danger btn-sm" id="deleteBarang" value="' . $data->id . '"><i class="bi bi-trash"></i></button>';
                 } else {
                     return '<button type="button" class="btn btn-primary btn-sm" id="userTarikBarang" value="' . $data->id . '">Tarik</a>' .
-                    ' <button type="button" class="btn btn-danger btn-sm" id="deleteBarang" value="' . $data->id . '">Delete</button>';
+                    ' <button type="button" class="btn btn-danger btn-sm" id="deleteBarang" value="' . $data->id . '"><i class="bi bi-trash"></i></button>';
                 }
             })
             ->rawColumns(['Actions'])
