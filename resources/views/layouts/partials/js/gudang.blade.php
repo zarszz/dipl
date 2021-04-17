@@ -63,4 +63,6 @@
         })
     });
 
+    table_barang_on_gudang
+
 </script>

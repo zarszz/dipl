@@ -65,6 +65,10 @@
     @include('layouts.partials.js.audit_log')
 @endif
 
+@if (str_contains(request()->route()->uri, 'cek-barang'))
+    @include('layouts.partials.js.list_barang')
+@endif
+
 <script>
     $('#datetimepicker').datetimepicker();
 

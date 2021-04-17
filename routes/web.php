@@ -92,6 +92,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/admin/gudang/{id}/edit', [GudangController::class, 'edit'])->name('admin.gudangs.edit');
         Route::get('/admin/gudang/{id}/delete', [GudangController::class, 'delete'])->name('admin.gudangs.delete');
         Route::put('/admin/gudang/{id}', [GudangController::class, 'update'])->name('admin.gudangs.update');
+        Route::get('/{user_id}/gudang/{id}/cek-barang/ajax', [GudangController::class, 'getBarangByUserData'])->name('user.gudangs.barangs.ajax');
+        Route::get('/{user_id}/gudang/{id}/cek-barang', [GudangController::class, 'getBarangByUser'])->name('user.gudangs.barangs');
 
         Route::post('/admin/ruangan', [RuanganController::class, 'store'])->name('admin.ruangans.store');
         Route::get('/admin/ruangan', [RuanganController::class, 'index'])->name('admin.ruangans.index');
