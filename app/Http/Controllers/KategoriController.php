@@ -82,7 +82,7 @@ class KategoriController extends Controller
             'deskripsi' => 'required',
         ]);
         $kategori->update($newKategori);
-
+        $request->session()->put('status', 'success_update');
         return redirect()->route('dashboard.kategories');
     }
 

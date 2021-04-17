@@ -96,7 +96,7 @@ class UserController extends Controller
         $user->role_id = $request['role_id'];
 
         $user->save();
-
+        $request->session()->put('status', 'success_update');
         if(auth()->user()->isAdmin()) return redirect(route('dashboard.user'));
         return redirect()->back();
     }

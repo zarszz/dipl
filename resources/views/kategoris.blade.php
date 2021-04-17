@@ -17,11 +17,14 @@
     <x-slot name="slot">
         <section class="section">
             <div class="card">
+                @include('layouts.partials.success_update')
                 <div class="card-body card-content align-items-center">
                     <div class="col-3 align-item-center">
-                        <a href="{{ route('admin.kategories.create') }}" class="btn btn-success me-1 mb-1 btn-block">Tambah Kategori Baru</a>
+                        <a href="{{ route('admin.kategories.create') }}"
+                            class="btn btn-success me-1 mb-1 btn-block">Tambah Kategori Baru</a>
                     </div>
-                    <table id="table_kategori" class="table table-striped dataTable w-full table-hover" data-plugin="dataTable">
+                    <table id="table_kategori" class="table table-striped dataTable w-full table-hover"
+                        data-plugin="dataTable">
                         <thead>
                             <tr>
                                 <th>Id</th>

@@ -17,6 +17,7 @@
     <x-slot name="slot">
         <section class="section">
             <div class="card">
+                @include('layouts.partials.success_update')
                 <div class="card-body card-content align-items-center">
                     @can('manageGudang')
                         <div class="col-3 align-item-center">

@@ -91,7 +91,7 @@ class RuanganController extends Controller
         ]);
         $ruangan = Ruangan::findOrFail($id);
         $ruangan->update($ruanganData);
-
+        $request->session()->put('status', 'success_update');
         return redirect()->route('dashboard.ruangan');
     }
 

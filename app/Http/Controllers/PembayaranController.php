@@ -152,7 +152,7 @@ class PembayaranController extends Controller
         $pembayaran->update($pembayaranData);
 
         $routeParam = request()->only('page', 'q');
-
+        $request->session()->put('status', 'success_update');
         return redirect()->route('pembayarans.index', $routeParam);
     }
 

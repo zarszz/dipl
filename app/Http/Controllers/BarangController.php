@@ -153,7 +153,7 @@ class BarangController extends Controller
             'jumlah_brg' => 'required'
         ]);
         $barang->update($barangData);
-
+        $request->session()->put('status', 'success_update');
         return redirect()->route('dashboard.barang');
     }
 

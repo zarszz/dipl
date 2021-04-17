@@ -90,7 +90,7 @@ class GudangController extends Controller
             'alamat' => 'required'
         ]);
         $gudang->update($gudangData);
-
+        $request->session()->put('status', 'success_update');
         return redirect()->route('dashboard.gudang');
     }
 

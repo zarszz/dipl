@@ -117,6 +117,7 @@ class TicketingController extends Controller
             'pesan' => 'required|max:255|min:10',
         ]);
         $ticketing->update($ticketingData);
+        $request->session()->put('status', 'success_update');
         return redirect(route('dashboard.ticketing'));
     }
 

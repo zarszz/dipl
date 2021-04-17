@@ -5,11 +5,8 @@
 
 <!-- jQuery -->
 <script type="text/javascript" src="{{ asset('js/jquery-3.4.1.min.js') }} "></script>
-
-@if (str_contains(request()->route()->uri, 'register') || str_contains(request()->route()->uri, 'user/new'))
-    <script type="text/javascript" src="{{ asset('js/jquery.datetimepicker.full.js') }}"></script>
-@endif
-
+<script type="text/javascript" src="{{ asset('vendors/toastify/toastify.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.datetimepicker.full.js') }}"></script>
 
 @if (str_contains(request()->route()->uri, 'dashboard'))
     <script src="{{ asset('/js/extensions/sweetalert2.js') }}"></script>
@@ -20,6 +17,17 @@
 
     <!-- Chart -->
     <script type="text/javascript" src="{{ asset('vendors/apexcharts/apexcharts.js') }}"></script>
+    <script>
+        var isSuccessUpdated = document.getElementById("success_update");
+        if (isSuccessUpdated) {
+            Swal.fire(
+                'Berhasil !!',
+                'Update data Berhasil !!!',
+                'success'
+            )
+        }
+
+    </script>
 @endif
 
 <!-- Include base javascript -->

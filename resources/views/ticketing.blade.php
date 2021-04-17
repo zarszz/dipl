@@ -2,7 +2,9 @@
     <x-slot name="header">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>{{ auth()->user()->isAdmin() ? 'Manajemen' : '' }}Ticketing</h3>
+                <h3>{{ auth()->user()->isAdmin()
+    ? 'Manajemen'
+    : '' }}Ticketing</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -17,11 +19,14 @@
     <x-slot name="slot">
         <section class="section">
             <div class="card">
+                @include('layouts.partials.success_update')
                 <div class="card-body card-content align-items-center">
                     <div class="col-3 align-item-center">
-                        <a href="{{ route('ticketing.create') }}" class="btn btn-success me-1 mb-1 btn-block">Tambah Ticket Baru</a>
+                        <a href="{{ route('ticketing.create') }}" class="btn btn-success me-1 mb-1 btn-block">Tambah
+                            Ticket Baru</a>
                     </div>
-                    <table id="table_ticketing" class="table table-striped dataTable w-full table-hover" data-plugin="dataTable">
+                    <table id="table_ticketing" class="table table-striped dataTable w-full table-hover"
+                        data-plugin="dataTable">
                         <thead>
                             <tr>
                                 <th>Id</th>
