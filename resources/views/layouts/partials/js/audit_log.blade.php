@@ -5,7 +5,7 @@
     $(document).ready(function() {
         const data = [{
                 data: 'id',
-                'name': 'Id'
+                'name': 'id'
             },
             {
                 data: 'user_id',

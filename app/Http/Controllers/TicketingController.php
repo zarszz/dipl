@@ -14,9 +14,22 @@ class TicketingController extends Controller
      */
     public function index()
     {
-        $ticketings = auth()->user() ? Ticketing::all() : Ticketing::where('user_id', auth()->user()->id);
+        $params = [
+            'limit' => request()->input('length'),
+            'offset' => request()->input('start')
+        ];
+        $user = auth()->user();
+
+        $ticketings = Ticketing::select('id', 'user_id', 'pesan', 'status');
+        $count = Ticketing::count();
+        if ($user->role_id == 3) $ticketings->where('user_id', $user->id);
+
+        // perform basic pagination to reduce queries
+        $ticketings->limit($params['limit'])->offset($params['offset']);
+
         return datatables()
             ->of($ticketings)
+            ->setTotalRecords($count)
             ->addColumn('Actions', function ($data) {
                 return '<a type="button" href="/dashboard/ticketing/' . $data->id . '/edit" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>' .
                     ' <button type="button" class="btn btn-danger btn-sm" id="deleteTicket" value="' . $data->id . '"><i class="bi bi-trash"></i></button>';

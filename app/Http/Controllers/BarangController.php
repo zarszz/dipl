@@ -20,10 +20,22 @@ class BarangController extends Controller
      */
     public function index()
     {
+        $params = [
+            'limit' => request()->input('length'),
+            'offset' => request()->input('start')
+        ];
         $user = auth()->user();
-        $barangs = $user->isAdmin() || $user->isDriver() ? Barang::all() : Barang::where('user_id', auth()->user()->id);
+
+        $barangs = Barang::select('id', 'user_id', 'kode_gudang', 'kode_ruangan', 'kode_kendaraan', 'kode_kategori', 'nama_brg', 'jumlah_brg');
+        $count = Barang::count();
+        if ($user->role_id == 3) $barangs->where('user_id', $user->id);
+
+        // perform pagination
+        $barangs->limit($params['limit'])->offset($params['offset']);
+
         return datatables()
             ->of($barangs)
+            ->setTotalRecords($count)
             ->addColumn('Actions', function ($data) use ($user) {
                 if ($user->isDriver()) {
                     return '<a type="button" href="/dashboard/admin/barang/' . $data->id . '/edit" class="btn btn-primary btn-sm">Cek Barang</a>';

@@ -22,11 +22,10 @@ class UserController extends Controller
             'limit' => request()->input('length'),
             'offset' => request()->input('start')
         ];
-        // $users = User::select('id', 'email', 'jenis_kelamin', 'nama')->limit($params['limit'])->offset($params['offset'])->get();
-        $users = User::all();
-        // $count = User::count();
+        $users = User::select('id', 'email', 'jenis_kelamin', 'nama')->limit($params['limit'])->offset($params['offset']);
+        $count = User::count();
         return datatables()->of($users)
-            // ->setTotalRecords($count)
+            ->setTotalRecords($count)
             ->addColumn('Status', function ($user) {
                 if ($user->status == "unverified") {
                     return ' <button type="button" class="btn btn-warning btn-sm" id="adminVerifUser" value="' . $user->id . '">VERIFY</button>';

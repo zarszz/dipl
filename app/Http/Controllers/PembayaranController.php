@@ -17,10 +17,22 @@ class PembayaranController extends Controller
      */
     public function index()
     {
+        $params = [
+            'limit' => request()->input('length'),
+            'offset' => request()->input('start')
+        ];
         $user = auth()->user();
-        $pembayarans = $user->isAdmin() ? Pembayaran::all() : Pembayaran::where('user_id', auth()->user()->id);
+        $pembayarans = Pembayaran::select('id', 'tgl_bayar', 'no_bayar', 'status', 'jumlah_bayar', 'bukti_bayar', 'user_id');
+        $count = Pembayaran::count();
+
+        if ($user->role_id == 3) $pembayarans->where('user_id', $user->id);
+
+        // perform pagination
+        $pembayarans->limit($params['limit'])->offset($params['offset']);
+
         return datatables()
             ->of($pembayarans)
+            ->setTotalRecords($count)
             ->addColumn('Actions', function ($pembayaran) use ($user) {
                 if (!($user->isAdmin())) {
                     if ($pembayaran->bukti_bayar) {
