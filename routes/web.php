@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuditLogController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\GudangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
@@ -32,9 +33,7 @@ Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallbac
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::prefix('dashboard')->group(function () {
-        Route::get('/', function () {
-            return view('dashboard');
-        })->name('dashboard');
+        Route::get('/', [Controller::class, 'dashboard'])->name('dashboard');
 
         Route::get('/pembayaran', function () {
             return view('pembayaran');
@@ -94,6 +93,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::put('/admin/gudang/{id}', [GudangController::class, 'update'])->name('admin.gudangs.update');
         Route::get('/{user_id}/gudang/{id}/cek-barang/ajax', [GudangController::class, 'getBarangByUserData'])->name('user.gudangs.barangs.ajax');
         Route::get('/{user_id}/gudang/{id}/cek-barang', [GudangController::class, 'getBarangByUser'])->name('user.gudangs.barangs');
+        Route::get('/gudang/barang', [GudangController::class, 'getBarangOnGudang'])->name('gudangs.count.barangs');
 
         Route::post('/admin/ruangan', [RuanganController::class, 'store'])->name('admin.ruangans.store');
         Route::get('/admin/ruangan', [RuanganController::class, 'index'])->name('admin.ruangans.index');

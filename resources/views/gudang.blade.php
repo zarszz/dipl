@@ -19,12 +19,12 @@
             <div class="card">
                 @include('layouts.partials.success_update')
                 <div class="card-body card-content align-items-center">
-                    @can('manageGudang')
+                    @if(auth()->user()->isAdmin())
                         <div class="col-3 align-item-center">
                             <a href="{{ route('admin.gudangs.create') }}"
                                 class="btn btn-success me-1 mb-1 btn-block">Tambah Gudang Baru</a>
                         </div>
-                    @endcan
+                    @endif
                     <table id="table_gudang" class="table table-striped dataTable w-full table-hover"
                         data-plugin="dataTable">
                         <thead>

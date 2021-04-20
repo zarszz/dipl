@@ -5,12 +5,18 @@
 <!-- Vendors -->
 <link rel="stylesheet" href="{{ asset('/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
 <link rel="stylesheet" href="{{ asset('/vendors/bootstrap-icons/bootstrap-icons.css') }}">
+<link rel="stylesheet" href="{{ asset('/vendors/iconly/bold.css') }}">
 <link rel="stylesheet" href="{{ asset('/vendors/toastify/toastify.css')}}">
 
 
 <!-- Styles -->
 <link rel="stylesheet" href="{{ mix('css/bootstrap.css') }}">
 <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+<style>
+    body {
+        background-color: #f2f7ff;
+    }
+</style>
 
 <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
 <link href="{{ asset('css/responsive.dataTables.min.css') }}" rel="stylesheet">

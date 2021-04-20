@@ -1,129 +1,260 @@
 <x-app-layout>
     <x-slot name="header">
-        <section class="section">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Basic Sweet Alert</h4>
-                            <p class="text-muted">SweetAlert automatically centers itself on the page and looks
-                                great no
-                                matter if you're using a desktop computer, mobile or tablet. It's even highly
-                                customizable,
-                                as you can see below!</p>
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+
+        <div class="page-heading">
+            <h3>Statistik data</h3>
+        </div>
+        <div class="page-content">
+            <div class="col-12 ">
+                <div class="row">
+                    <div class="col-6 col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-3 py-4-5 custom-bg-card">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon purple">
+                                            <i class="iconly-boldShow"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">User</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $usersCount }}</h6>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-4 col-12">
-                                    <button id="basic" class="btn btn-outline-primary btn-lg btn-block">Basic
-                                        Example</button>
+                    </div>
+                    <div class="col-6 col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-3 py-4-5 custom-bg-card">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon blue">
+                                            <i class="iconly-boldProfile"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">Gudang</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $gudangCount }}</h6>
+                                    </div>
                                 </div>
-                                <div class="col-md-4 col-12">
-                                    <button id="title" class="btn btn-outline-primary btn-lg btn-block">A title
-                                        with a text
-                                        under</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-3 py-4-5 custom-bg-card">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon green">
+                                            <i class="iconly-boldAdd-User"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">Barang</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $barangCount }}</h6>
+                                    </div>
                                 </div>
-                                <div class="col-md-4 col-12">
-                                    <button id="footer" class="btn btn-outline-primary btn-lg btn-block">With
-                                        Footer</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-3 py-4-5 custom-bg-card">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon red">
+                                            <i class="iconly-boldBookmark"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">Aktivitas</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $logCount }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Distribusi barang</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart-profile-visit"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-xl-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Distribusi Per-kategori</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart-visitors-profile"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Ticketing terakhir</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-lg">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-md">
+                                                            <img src="assets/images/faces/5.jpg">
+                                                        </div>
+                                                        <p class="font-bold ms-3 mb-0">Si Cantik</p>
+                                                    </div>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">Congratulations on your graduation!</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-md">
+                                                            <img src="assets/images/faces/2.jpg">
+                                                        </div>
+                                                        <p class="font-bold ms-3 mb-0">Si Ganteng</p>
+                                                    </div>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">Wow amazing design! Can you make another
+                                                        tutorial for
+                                                        this design?</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-xl-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>User belum verifikasi</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-lg">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-md">
+                                                            <img src="assets/images/faces/5.jpg">
+                                                        </div>
+                                                        <p class="font-bold ms-3 mb-0">Si Cantik</p>
+                                                    </div>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">Congratulations on your graduation!</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-md">
+                                                            <img src="assets/images/faces/2.jpg">
+                                                        </div>
+                                                        <p class="font-bold ms-3 mb-0">Si Ganteng</p>
+                                                    </div>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">Wow amazing design! Can you make another
+                                                        tutorial for
+                                                        this design?</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Pembayaran</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-lg">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-md">
+                                                            <img src="assets/images/faces/5.jpg">
+                                                        </div>
+                                                        <p class="font-bold ms-3 mb-0">Si Cantik</p>
+                                                    </div>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">Congratulations on your graduation!</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-md">
+                                                            <img src="assets/images/faces/2.jpg">
+                                                        </div>
+                                                        <p class="font-bold ms-3 mb-0">Si Ganteng</p>
+                                                    </div>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">Wow amazing design! Can you make another
+                                                        tutorial for
+                                                        this design?</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <section class="section">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Types</h4>
-                            <p class='text-muted'>The type of the modal. SweetAlert comes with 5 built-in types
-                                which will
-                                show a corresponding icon animation: "warning", "error", "success" and "info".
-                                You can also
-                                set it as "input" to get a prompt modal. It can either be put in the object
-                                under the key
-                                "icon" or passed as the third parameter of the function.</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-4 col-12">
-                                    <button id="success"
-                                        class="btn btn-outline-success btn-lg btn-block">Success</button>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <button id="error"
-                                        class="btn btn-outline-danger btn-lg btn-block">Error</button>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <button id="warning"
-                                        class="btn btn-outline-warning btn-lg btn-block">Warning</button>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-6 col-12">
-                                    <button id="info"
-                                        class="btn btn-outline-info btn-lg btn-block">Info</button>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <button id="question"
-                                        class="btn btn-outline-secondary btn-lg btn-block">Question</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Alert Input</h4>
-                            <p class='text-muted'>The type of the modal. SweetAlert comes with 5 built-in types
-                                which will
-                                show a corresponding icon animation: "warning", "error", "success" and "info".
-                                You can also
-                                set it as "input" to get a prompt modal. It can either be put in the object
-                                under the key
-                                "icon" or passed as the third parameter of the function.</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-4 col-12">
-                                    <button id="text"
-                                        class="btn btn-outline-success btn-lg btn-block">Text</button>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <button id="email"
-                                        class="btn btn-outline-danger btn-lg btn-block">Email</button>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <button id="url"
-                                        class="btn btn-outline-warning btn-lg btn-block">URL</button>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-4 col-12">
-                                    <button id="password"
-                                        class="btn btn-outline-info btn-lg btn-block">Password</button>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <button id="textarea"
-                                        class="btn btn-outline-secondary btn-lg btn-block">Textarea</button>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <button id="select"
-                                        class="btn btn-outline-secondary btn-lg btn-block">Select</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
     </x-slot>
 </x-app-layout>

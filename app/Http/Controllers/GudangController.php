@@ -51,6 +51,19 @@ class GudangController extends Controller
                 ->make(true);
     }
 
+    public function getBarangOnGudang()
+    {
+        $data = [];
+        $barangsOnGudang = Gudang::with('barang')->get();
+        foreach ($barangsOnGudang as $gudang) {
+            array_push($data, [
+                'y' => sizeof($gudang->barang),
+                'x' => $gudang->nama_gudang
+            ]);
+        }
+        return response()->json($data, 200);
+    }
+
         /**
      * Display a listing of barang in the gudang based on user id.
      * @return view
@@ -77,8 +90,6 @@ class GudangController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', new Gudang);
-
         $newGudang = $request->validate([
             'nama_gudang' => 'required',
             'alamat' => 'required'
