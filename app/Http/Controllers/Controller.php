@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\AuditLog;
 use App\Models\Barang;
 use App\Models\Gudang;
+use App\Models\Pembayaran;
+use App\Models\Ticketing;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -22,6 +24,10 @@ class Controller extends BaseController
         $gudangCount = Gudang::count();
         $logCount = AuditLog::count();
 
-        return view('dashboard', compact('usersCount', 'barangCount', 'gudangCount', 'logCount'));
+        $latestTicketing = Ticketing::orderBy('created_at', 'ASC')->take(5)->get();
+        $latestUnverifiedUser = User::where('status', 'unverified')->orderBy('created_at', 'ASC')->take(5)->get();
+        $latestPembayaran = Pembayaran::orderBy('created_at', 'ASC')->take(5)->get();
+
+        return view('dashboard', compact('usersCount', 'barangCount', 'gudangCount', 'logCount', 'latestTicketing', 'latestUnverifiedUser', 'latestPembayaran'));
     }
 }

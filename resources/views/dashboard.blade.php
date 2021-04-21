@@ -107,154 +107,130 @@
                     <div class="col-12 col-xl-8">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Ticketing terakhir</h4>
+                                <h4><a href="{{ route('dashboard.ticketing') }}" class="text-dark">Ticketing
+                                        terakhir</a></h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-lg">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Comment</th>
+                                                <th>User Id</th>
+                                                <th>Pesan</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="assets/images/faces/5.jpg">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">Congratulations on your graduation!</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="assets/images/faces/2.jpg">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">Wow amazing design! Can you make another
-                                                        tutorial for
-                                                        this design?</p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                            @forelse ($latestTicketing as $ticketing)
+                                                <tr>
+                                                    <td class="col-3">
+                                                        <p class="font-bold ms-3 mb-0">{{ $ticketing->user_id }}</p>
+                                                    </td>
+                                                    <td class="col-auto">
+                                                        <p class=" mb-0">{{ $ticketing->pesan }}</p>
+                                                    </td>
+                                                    <td>
+                                                        @if (auth()->user()->isAdmin())
+                                                            @switch($ticketing->status)
+                                                                @case('pending')
+                                                                    <button type="button" class="disabled btn btn-warning"
+                                                                        id="prosesTicket"
+                                                                        value="{{ $ticketing->id }}">Pending</button>
+                                                                @break
+                                                                @case('on_progress')
+                                                                    <button type="button" class="disabled btn btn-primary"
+                                                                        id="prosesTicket"
+                                                                        value="{{ $ticketing->id }}">Progress</button>
+                                                                @break
+
+                                                                @default
+                                                                    <button type="button" class="disabled btn btn-success"
+                                                                        id="prosesTicket"
+                                                                        value="{{ $ticketing->id }}">Finished</button>
+                                                            @endswitch
+                                                        @else
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                @empty
+                                                    <p>Tidak ada data.</p>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>User belum verifikasi</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-lg">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Comment</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="assets/images/faces/5.jpg">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">Congratulations on your graduation!</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="assets/images/faces/2.jpg">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">Wow amazing design! Can you make another
-                                                        tutorial for
-                                                        this design?</p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                    <div class="row">
+                        <div class="col-12 col-xl-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4><a href="{{ route('dashboard.pembayaran') }}" class="text-black">Pembayaran</a></h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-lg">
+                                            <thead>
+                                                <tr>
+                                                    <th>User id</th>
+                                                    <th>Kode bayar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse ($latestPembayaran as $pembayaran)
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <p class="font-bold ms-3 mb-0">{{ $pembayaran->user_id }}</p>
+                                                        </td>
+                                                        <td class="col-3">
+                                                            <p class="font-bold ms-3 mb-0">{{ $pembayaran->no_bayar }}</p>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    Tidak ada data.
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Pembayaran</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-lg">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Comment</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="assets/images/faces/5.jpg">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">Congratulations on your graduation!</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="assets/images/faces/2.jpg">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">Wow amazing design! Can you make another
-                                                        tutorial for
-                                                        this design?</p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                        <div class="col-12 col-xl-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4><a href="{{ route('dashboard.user') }}" class="text-black">User belum verifikasi</a></h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-lg">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nama</th>
+                                                    <th>Email</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse ($latestUnverifiedUser as $user)
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <p class="font-bold ms-3 mb-0">{{ $user->nama }}</p>
+                                                        </td>
+                                                        <td class="col-3">
+                                                            <p class="font-bold ms-3 mb-0">{{ $user->email }}</p>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    Tidak ada data.
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </x-slot>
-</x-app-layout>
+        </x-slot>
+    </x-app-layout>
