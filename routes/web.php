@@ -118,10 +118,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/admin/pembayaran/{id}', [PembayaranController::class, 'view'])->name('user.pembayarans.view');
         Route::get('/pembayaran/new', [PembayaranController::class, 'createPembayaran'])->name('user.pembayarans.create');
         Route::get('/user/pembayaran/{id}/upload_bukti', [PembayaranController::class, 'editBukti'])->name('user.pembayarans.bukti.edit');
+        Route::get('/pembayaran/{id}/edit_bukti', [PembayaranController::class, 'editBukti'])->name('admin.pembayarans.bukti.edit');
         Route::get('/pembayarans', [PembayaranController::class, 'index'])->name('pembayarans.index');
         Route::get('/admin/pembayaran/{id}/verify', [PembayaranController::class, 'verify'])->name('admin.pembayarans.verify');
         Route::get('/admin/pembayaran/{id}/delete', [PembayaranController::class, 'delete'])->name('user.pembayarans.bukti.delete');
-        Route::put('/pembayaran/{id}/upload_bukti', [PembayaranController::class, 'updateBukti'])->name('user.pembayarans.bukti.update');
+        Route::put('/pembayaran/{id}/upload_bukti', [PembayaranController::class, 'updateBukti'])->name('pembayarans.bukti.update');
 
         Route::post('/ticketing', [TicketingController::class, 'store'])->name('ticketing.store');
         Route::get('/ticketings', [TicketingController::class, 'index'])->name('ticketing.index');

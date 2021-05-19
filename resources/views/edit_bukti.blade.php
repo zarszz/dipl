@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Upload Pembayaran</h3>
+                <h3>Update Bukti Pembayaran</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -36,7 +36,7 @@
             </div>
             <div class="col-md-7 col-lg-8">
                 <h4 class="mb-3">Informasi pengguna</h4>
-                <form action="{{ route('user.pembayarans.bukti.update', ['id' => $pembayaran->id]) }}" method="POST"
+                <form action="{{ route('pembayarans.bukti.update', ['id' => $pembayaran->id]) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     @method("PUT")
@@ -63,13 +63,13 @@
                             <label for="formFile" class="form-label">Bukti pembayaran saat ini</label>
                             @if ($pembayaran->bukti_bayar)
                                 <img src="{{ $pembayaran->bukti_bayar }}" alt="">
-                            @endif                            
+                            @endif
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="form-label">Silahkan pilih file bukti pembayaran</label>
                             <input class="form-control" type="file" name="bukti_pembayaran">
                         </div>
-                        <button class="w-100 btn btn-primary btn-lg" type="submit">Upload Bukti Pembayaran</button>
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">Update Bukti Pembayaran</button>
                 </form>
             </div>
         </div>
