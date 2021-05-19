@@ -136,9 +136,8 @@ class PembayaranController extends Controller
         $this->authorize('update', $pembayaran);
 
         $pembayaran->status = "on-hold";
-        $filename = $pembayaran->no_bayar . '.jpg';
-        $request->file('bukti_pembayaran')->storeAs('public/pembayaran', $filename);
-        $pembayaran->bukti_bayar = env('APP_URL') . '/storage/pembayaran/' . $filename;
+        $uploadedFileUrl = cloudinary()->upload($request->file('bukti_pembayaran')->getRealPath())->getSecurePath();
+        $pembayaran->bukti_bayar = $uploadedFileUrl;
         $pembayaran->save();
 
         return redirect(route('dashboard.pembayaran'));
