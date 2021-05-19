@@ -12,23 +12,25 @@
         <div class="page-content">
             <div class="col-12 ">
                 <div class="row">
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body px-3 py-4-5 custom-bg-card">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="stats-icon purple">
-                                            <i class="iconly-boldShow"></i>
+                    @if (auth()->user()->isAdmin())
+                        <div class="col-6 col-lg-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body px-3 py-4-5 custom-bg-card">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="stats-icon purple">
+                                                <i class="iconly-boldShow"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">User</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $usersCount }}</h6>
+                                        <div class="col-md-8">
+                                            <h6 class="text-muted font-semibold">User</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $usersCount }}</h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="col-6 col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body px-3 py-4-5 custom-bg-card">
@@ -88,23 +90,13 @@
                                 <h4>Distribusi barang</h4>
                             </div>
                             <div class="card-body">
-                                <div id="chart-profile-visit"></div>
+                                <div id="chart-distribusi-barang"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-xl-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Distribusi Per-kategori</h4>
-                            </div>
-                            <div class="card-body">
-                                <div id="chart-visitors-profile"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-xl-8">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-header">
                                 <h4><a href="{{ route('dashboard.ticketing') }}" class="text-dark">Ticketing
@@ -132,23 +124,23 @@
                                                     <td>
                                                         @if (auth()->user()->isAdmin())
                                                             @switch($ticketing->status)
-                                                                @case('pending')
-                                                                    <button type="button" class="disabled btn btn-warning"
-                                                                        id="prosesTicket"
-                                                                        value="{{ $ticketing->id }}">Pending</button>
-                                                                @break
-                                                                @case('on_progress')
-                                                                    <button type="button" class="disabled btn btn-primary"
-                                                                        id="prosesTicket"
-                                                                        value="{{ $ticketing->id }}">Progress</button>
-                                                                @break
+                                                                    @case('pending')
+                                                                        <button type="button" class="disabled btn btn-warning"
+                                                                            id="prosesTicket"
+                                                                            value="{{ $ticketing->id }}">Pending</button>
+                                                                    @break
+                                                                    @case('on_progress')
+                                                                        <button type="button" class="disabled btn btn-primary"
+                                                                            id="prosesTicket"
+                                                                            value="{{ $ticketing->id }}">Progress</button>
+                                                                    @break
 
-                                                                @default
-                                                                    <button type="button" class="disabled btn btn-success"
-                                                                        id="prosesTicket"
-                                                                        value="{{ $ticketing->id }}">Finished</button>
-                                                            @endswitch
-                                                        @else
+                                                                    @default
+                                                                        <button type="button" class="disabled btn btn-success"
+                                                                            id="prosesTicket"
+                                                                            value="{{ $ticketing->id }}">Finished</button>
+                                                                @endswitch
+                                                            @else
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -196,39 +188,41 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-xl-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4><a href="{{ route('dashboard.user') }}" class="text-black">User belum verifikasi</a></h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-lg">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nama</th>
-                                                    <th>Email</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse ($latestUnverifiedUser as $user)
+                        @if (auth()->user()->isAdmin())
+                            <div class="col-12 col-xl-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4><a href="{{ route('dashboard.user') }}" class="text-black">User belum verifikasi</a></h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-lg">
+                                                <thead>
                                                     <tr>
-                                                        <td class="col-3">
-                                                            <p class="font-bold ms-3 mb-0">{{ $user->nama }}</p>
-                                                        </td>
-                                                        <td class="col-3">
-                                                            <p class="font-bold ms-3 mb-0">{{ $user->email }}</p>
-                                                        </td>
+                                                        <th>Nama</th>
+                                                        <th>Email</th>
                                                     </tr>
-                                                @empty
-                                                    Tidak ada data.
-                                                @endforelse
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse ($latestUnverifiedUser as $user)
+                                                        <tr>
+                                                            <td class="col-3">
+                                                                <p class="font-bold ms-3 mb-0">{{ $user->nama }}</p>
+                                                            </td>
+                                                            <td class="col-3">
+                                                                <p class="font-bold ms-3 mb-0">{{ $user->email }}</p>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        Tidak ada data.
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

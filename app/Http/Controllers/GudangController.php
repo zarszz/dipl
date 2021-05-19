@@ -10,7 +10,7 @@ class GudangController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:manageGudang,App\Models\Gudang')->except(['index', 'getBarangByUserData', 'getBarangByUser']);
+        $this->middleware('can:manageGudang,App\Models\Gudang')->except(['index', 'getBarangByUserData', 'getBarangByUser', 'getBarangOnGudang']);
     }
 
     /**
@@ -54,7 +54,11 @@ class GudangController extends Controller
     public function getBarangOnGudang()
     {
         $data = [];
-        $barangsOnGudang = Gudang::with('barang')->get();
+        $user = auth()->user();
+        $barangsOnGudang = $user->isAdmin() ? Gudang::with('barang')->get()
+                            : Gudang::with(['barang' => function($barang) use($user) {
+                                $barang->where('user_id', $user->id);
+                            }])->get();
         foreach ($barangsOnGudang as $gudang) {
             array_push($data, [
                 'y' => sizeof($gudang->barang),
