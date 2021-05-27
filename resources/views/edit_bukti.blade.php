@@ -59,6 +59,16 @@
                             <textarea class="form-control" id="address"
                                 disabled>{{ $pembayaran->no_bayar }}</textarea>
                         </div>
+                        @if (auth()->user()->isAdmin())
+                            <div class="mb-3">
+                                <label class="form-label" style="font-weight: bold; color: red">Status Bukti Pembayaran</label>
+                                <select class="form-select" name="status">
+                                    @foreach ($statuses as $status)
+                                        <option value="{{ $status }}">{{ $status }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
                         <div class="mb-3">
                             <label for="formFile" class="form-label">Bukti pembayaran saat ini</label>
                             @if ($pembayaran->bukti_bayar)

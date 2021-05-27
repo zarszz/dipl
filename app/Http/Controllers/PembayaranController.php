@@ -119,8 +119,16 @@ class PembayaranController extends Controller
     public function editBukti($id)
     {
         $pembayaran = Pembayaran::where('id', $id)->first();
+        $statuses = ['verified', 'unverified', 'on-hold'];
         $this->authorize('update', $pembayaran);
-        return view('edit_bukti', ['pembayaran' => $pembayaran, 'user' => auth()->user()]);
+        return view(
+            'edit_bukti',
+            [
+                'pembayaran' => $pembayaran,
+                'user' => auth()->user(),
+                'statuses' => $statuses
+            ]
+        );
     }
 
     /**
@@ -135,9 +143,15 @@ class PembayaranController extends Controller
         $pembayaran = Pembayaran::where('id', $request['id'])->first();
         $this->authorize('update', $pembayaran);
 
-        $pembayaran->status = "on-hold";
-        $uploadedFileUrl = cloudinary()->upload($request->file('bukti_pembayaran')->getRealPath())->getSecurePath();
-        $pembayaran->bukti_bayar = $uploadedFileUrl;
+        if (auth()->user()->isAdmin()) {
+            $pembayaran->status = $request['status'];
+        } else {
+            $pembayaran->status = "on-hold";
+        }
+        if ($request->file('bukti_pembayaran')) {
+            $uploadedFileUrl = cloudinary()->upload($request->file('bukti_pembayaran')->getRealPath())->getSecurePath();
+            $pembayaran->bukti_bayar = $uploadedFileUrl;
+        }
         $pembayaran->save();
 
         return redirect(route('dashboard.pembayaran'));
