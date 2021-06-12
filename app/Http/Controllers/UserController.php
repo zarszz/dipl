@@ -22,7 +22,7 @@ class UserController extends Controller
             'limit' => request()->input('length'),
             'offset' => request()->input('start')
         ];
-        $users = User::select('id', 'email', 'jenis_kelamin', 'nama')->limit($params['limit'])->offset($params['offset']);
+        $users = User::select('id', 'email', 'jenis_kelamin', 'nama', 'status')->limit($params['limit'])->offset($params['offset']);
         $count = User::count();
         return datatables()->of($users)
             ->setTotalRecords($count)

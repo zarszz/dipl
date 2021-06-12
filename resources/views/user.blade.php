@@ -23,45 +23,11 @@
             </div>
             <div class="card">
                 @include('layouts.partials.success_update')
-                <div class="card-title">
-                    Cari User
-                </div>
                 <div class="card-body card-content">
                     <form class="form form-horizontal">
                         <div class="form-body">
                             <div class="row">
-                                <div class="col-md-2">
-                                    <label>Name</label>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="form-group has-icon-left">
-                                        <div class="position-relative">
-                                            <input type="text" class="form-control" placeholder="Name"
-                                                id="first-name-icon">
-                                            <div class="form-control-icon">
-                                                <i class="bi bi-person"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <label>Email</label>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="form-group has-icon-left">
-                                        <div class="position-relative">
-                                            <input type="email" class="form-control" placeholder="Email"
-                                                id="first-name-icon">
-                                            <div class="form-control-icon">
-                                                <i class="bi bi-envelope"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <button type="submit" class="btn btn-primary me-1 mb-1 btn-block">Search</button>
-                                </div>
-                                <div class="col-6">
+                                <div class="col-3">
                                     <a href="{{ route('dashboard.user.create') }}"
                                         class="btn btn-success me-1 mb-1 btn-block">Add New User</a>
                                 </div>
