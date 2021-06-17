@@ -76,7 +76,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $newUser = $request->validate([
             'nama' => ['required', 'string', 'max:255'],
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'tgl_lahir' => ['required'],
@@ -84,20 +84,19 @@ class UserController extends Controller
             'jenis_kelamin' => ['required']
         ]);
 
-        $user = User::find($request['id']);
+        $user = User::find($id);
         $this->authorize('update', $user);
-        $user->nama = $request['nama'];
-        if ($user->email != $request['email']) {
-            $user->email = $request['email'];
-        }
-        $user->tgl_lahir = $request['tgl_lahir'];
-        $user->jenis_kelamin = $request['jenis_kelamin'];
-        $user->role_id = $request['role_id'];
 
-        $user->save();
-        $request->session()->put('status', 'success_update');
-        if(auth()->user()->isAdmin()) return redirect(route('dashboard.user'));
-        return redirect()->back();
+        $user->nama = $newUser['nama'];
+        $user->email = $newUser['email'];
+        $user->tgl_lahir = $newUser['tgl_lahir'];
+        $user->jenis_kelamin = $newUser['jenis_kelamin'];
+        $user->alamat = $newUser['alamat'];
+
+        if($user->update()) {
+            $request->session()->put('status', 'success_update');
+            return redirect()->back();
+        };
     }
 
     public function updatePassword(Request $request, $id)

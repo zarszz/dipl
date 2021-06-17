@@ -12,7 +12,6 @@
             <form action="{{ route('user.update', ['id' => auth()->user()->id]) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <input type="hidden" value="{{ auth()->user()->id }}" name="id">
                 <div class="form-group position-relative has-icon-left mb-4">
                     <input type="text" class="form-control form-control-xl" name="nama" placeholder="Nama Lengkap"
                         value="{{ auth()->user()->nama }}" required>
